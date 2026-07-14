@@ -1,0 +1,112 @@
+{
+  "anchor_posts": 45,
+  "raw_comments": 326,
+  "unique_comment_ids_observed": 163,
+  "duplicate_or_missing_id_rows": 163,
+  "comments_within_24h": 130,
+  "analysis_ready_comments": 118,
+  "balanced_comments": 61,
+  "within_24h_by_result": {
+    "loss": 50,
+    "win": 80
+  },
+  "analysis_ready_by_result": {
+    "loss": 43,
+    "win": 75
+  },
+  "balanced_by_result": {
+    "loss": 31,
+    "win": 30
+  },
+  "within_24h_by_event": {
+    "loss_20240731_paris_moregard": 13,
+    "loss_20250208_singapore_liang": 1,
+    "loss_20250419_worldcup_calderano": 22,
+    "loss_20250811_yokohama_harimoto": 14,
+    "win_20250316_chongqing_lin": 26,
+    "win_20250525_doha_calderano": 12,
+    "win_20250714_us_smash_harimoto": 40,
+    "win_20251005_china_smash_lebrun": 2
+  },
+  "analysis_ready_by_event": {
+    "loss_20240731_paris_moregard": 13,
+    "loss_20250208_singapore_liang": 1,
+    "loss_20250419_worldcup_calderano": 15,
+    "loss_20250811_yokohama_harimoto": 14,
+    "win_20250316_chongqing_lin": 26,
+    "win_20250525_doha_calderano": 12,
+    "win_20250714_us_smash_harimoto": 37
+  },
+  "balanced_by_event": {
+    "loss_20240731_paris_moregard": 10,
+    "loss_20250208_singapore_liang": 1,
+    "loss_20250419_worldcup_calderano": 10,
+    "loss_20250811_yokohama_harimoto": 10,
+    "win_20250316_chongqing_lin": 10,
+    "win_20250525_doha_calderano": 10,
+    "win_20250714_us_smash_harimoto": 10
+  },
+  "anchors_with_raw_comments": 25,
+  "anchors_with_24h_comments": 21,
+  "by_event": {
+    "loss_20240731_paris_moregard": {
+      "raw": 30,
+      "within_window": 13,
+      "analysis_ready": 13,
+      "empty": 1,
+      "duplicate_or_missing_id": 15,
+      "outside_window": 1
+    },
+    "loss_20250208_singapore_liang": {
+      "raw": 2,
+      "within_window": 1,
+      "analysis_ready": 1,
+      "duplicate_or_missing_id": 1
+    },
+    "loss_20250419_worldcup_calderano": {
+      "raw": 56,
+      "within_window": 22,
+      "analysis_ready": 15,
+      "empty": 1,
+      "possible_generic_interaction": 7,
+      "outside_window": 5,
+      "duplicate_or_missing_id": 28
+    },
+    "loss_20250811_yokohama_harimoto": {
+      "raw": 58,
+      "within_window": 14,
+      "analysis_ready": 14,
+      "empty": 8,
+      "outside_window": 7,
+      "duplicate_or_missing_id": 29
+    },
+    "win_20250316_chongqing_lin": {
+      "raw": 52,
+      "within_window": 26,
+      "analysis_ready": 26,
+      "duplicate_or_missing_id": 26
+    },
+    "win_20250525_doha_calderano": {
+      "raw": 44,
+      "within_window": 12,
+      "analysis_ready": 12,
+      "outside_window": 9,
+      "duplicate_or_missing_id": 22,
+      "empty": 1
+    },
+    "win_20250714_us_smash_harimoto": {
+      "raw": 80,
+      "within_window": 40,
+      "analysis_ready": 37,
+      "duplicate_or_missing_id": 40,
+      "possible_generic_interaction": 3
+    },
+    "win_20251005_china_smash_lebrun": {
+      "raw": 4,
+      "within_window": 2,
+      "possible_generic_interaction": 2,
+      "duplicate_or_missing_id": 2
+    }
+  },
+  "sampling_note": "The API returns hot-flow comments, not a complete chronological archive."
+}

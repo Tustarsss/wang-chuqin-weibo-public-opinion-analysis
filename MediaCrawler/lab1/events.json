@@ -1,0 +1,170 @@
+[
+  {
+    "active": false,
+    "event_id": "win_20240317_singapore_liang",
+    "result": "win",
+    "event_name": "WTT新加坡大满贯2024男单决赛",
+    "event_level": "WTT Grand Smash",
+    "round": "final",
+    "opponent": "梁靖崑",
+    "opponent_aliases": ["梁靖崑", "梁靖昆"],
+    "match_date": "2024-03-17",
+    "window_start": "2024-03-17T21:20:00+08:00",
+    "window_end": "2024-03-18T21:20:00+08:00",
+    "keywords": [
+      "王楚钦 梁靖崑 2024年3月17日",
+      "王楚钦 新加坡大满贯夺冠 2024年3月17日",
+      "王楚钦4比1梁靖崑夺冠 2024新加坡"
+    ]
+  },
+  {
+    "event_id": "loss_20240731_paris_moregard",
+    "result": "loss",
+    "event_name": "巴黎奥运会2024男单32强",
+    "event_level": "Olympic Games",
+    "round": "round_of_32",
+    "opponent": "莫雷加德",
+    "opponent_aliases": ["莫雷加德", "莫雷高德", "莫雷戈德"],
+    "match_date": "2024-07-31",
+    "window_start": "2024-07-31T17:00:00+08:00",
+    "window_end": "2024-08-01T17:00:00+08:00",
+    "keywords": [
+      "王楚钦 莫雷加德 2024年7月31日",
+      "王楚钦 巴黎奥运32强 2024年7月31日",
+      "王楚钦2比4莫雷加德 2024巴黎奥运"
+    ]
+  },
+  {
+    "event_id": "loss_20250208_singapore_liang",
+    "result": "loss",
+    "event_name": "WTT新加坡大满贯2025男单半决赛",
+    "event_level": "WTT Grand Smash",
+    "round": "semifinal",
+    "opponent": "梁靖崑",
+    "opponent_aliases": ["梁靖崑", "梁靖昆"],
+    "match_date": "2025-02-08",
+    "window_start": "2025-02-08T20:30:00+08:00",
+    "window_end": "2025-02-09T20:30:00+08:00",
+    "keywords": [
+      "王楚钦 梁靖崑 2025年2月8日",
+      "王楚钦 新加坡大满贯无缘决赛 2025年2月8日",
+      "王楚钦3比4梁靖崑 2025新加坡"
+    ]
+  },
+  {
+    "event_id": "loss_20250419_worldcup_calderano",
+    "result": "loss",
+    "event_name": "澳门世界杯2025男单半决赛",
+    "event_level": "ITTF World Cup",
+    "round": "semifinal",
+    "opponent": "卡尔德拉诺",
+    "opponent_aliases": ["卡尔德拉诺", "卡尔德拉诺", "雨果"],
+    "match_date": "2025-04-19",
+    "window_start": "2025-04-19T20:00:00+08:00",
+    "window_end": "2025-04-20T20:00:00+08:00",
+    "keywords": [
+      "王楚钦 卡尔德拉诺 2025年4月19日",
+      "王楚钦 澳门世界杯半决赛 2025年4月19日",
+      "王楚钦3比4卡尔德拉诺 2025澳门世界杯"
+    ]
+  },
+  {
+    "active": false,
+    "event_id": "win_20250524_doha_moregard",
+    "result": "win",
+    "event_name": "多哈世乒赛2025男单半决赛",
+    "event_level": "World Championships",
+    "round": "semifinal",
+    "opponent": "莫雷加德",
+    "opponent_aliases": ["莫雷加德", "莫雷高德", "莫雷戈德"],
+    "match_date": "2025-05-24",
+    "window_start": "2025-05-24T21:30:00+08:00",
+    "window_end": "2025-05-25T21:30:00+08:00",
+    "keywords": [
+      "王楚钦 莫雷加德 2025年5月24日",
+      "王楚钦 多哈世乒赛晋级决赛 2025年5月24日",
+      "王楚钦4比1莫雷加德 2025多哈"
+    ]
+  },
+  {
+    "event_id": "win_20250525_doha_calderano",
+    "result": "win",
+    "event_name": "多哈世乒赛2025男单决赛",
+    "event_level": "World Championships",
+    "round": "final",
+    "opponent": "卡尔德拉诺",
+    "opponent_aliases": ["卡尔德拉诺", "卡尔德拉诺", "雨果"],
+    "match_date": "2025-05-25",
+    "window_start": "2025-05-25T21:00:00+08:00",
+    "window_end": "2025-05-26T21:00:00+08:00",
+    "keywords": [
+      "王楚钦 卡尔德拉诺 2025年5月25日",
+      "王楚钦 多哈世乒赛男单冠军 2025年5月25日",
+      "王楚钦4比1卡尔德拉诺 2025多哈"
+    ]
+  },
+  {
+    "event_id": "win_20250714_us_smash_harimoto",
+    "result": "win",
+    "event_name": "WTT美国大满贯2025男单决赛",
+    "event_level": "WTT Grand Smash",
+    "round": "final",
+    "opponent": "张本智和",
+    "opponent_aliases": ["张本智和", "张本"],
+    "match_date": "2025-07-14",
+    "window_start": "2025-07-14T10:30:00+08:00",
+    "window_end": "2025-07-15T10:30:00+08:00",
+    "keywords": [
+      "王楚钦 张本智和 2025年7月14日",
+      "王楚钦 美国大满贯夺冠 2025年7月14日"
+    ]
+  },
+  {
+    "event_id": "loss_20250811_yokohama_harimoto",
+    "result": "loss",
+    "event_name": "WTT横滨冠军赛2025男单决赛",
+    "event_level": "WTT Champions",
+    "round": "final",
+    "opponent": "张本智和",
+    "opponent_aliases": ["张本智和", "张本"],
+    "match_date": "2025-08-11",
+    "window_start": "2025-08-11T19:20:00+08:00",
+    "window_end": "2025-08-12T19:20:00+08:00",
+    "keywords": [
+      "王楚钦 张本智和 2025年8月11日",
+      "王楚钦 横滨冠军赛亚军 2025年8月11日"
+    ]
+  },
+  {
+    "event_id": "win_20250316_chongqing_lin",
+    "result": "win",
+    "event_name": "WTT重庆冠军赛2025男单决赛",
+    "event_level": "WTT Champions",
+    "round": "final",
+    "opponent": "林诗栋",
+    "opponent_aliases": ["林诗栋", "林詩棟"],
+    "match_date": "2025-03-16",
+    "window_start": "2025-03-16T20:30:00+08:00",
+    "window_end": "2025-03-17T20:30:00+08:00",
+    "keywords": [
+      "王楚钦 林诗栋 2025年3月16日",
+      "王楚钦4比1林诗栋 重庆夺冠"
+    ]
+  },
+  {
+    "event_id": "win_20251005_china_smash_lebrun",
+    "result": "win",
+    "event_name": "WTT中国大满贯2025男单决赛",
+    "event_level": "WTT Grand Smash",
+    "round": "final",
+    "opponent": "费利克斯·勒布伦",
+    "opponent_aliases": ["费利克斯", "勒布伦", "小勒布伦"],
+    "match_date": "2025-10-05",
+    "window_start": "2025-10-05T20:00:00+08:00",
+    "window_end": "2025-10-06T20:00:00+08:00",
+    "keywords": [
+      "王楚钦 勒布伦 2025年10月5日",
+      "王楚钦4比0勒布伦 中国大满贯夺冠"
+    ]
+  }
+]

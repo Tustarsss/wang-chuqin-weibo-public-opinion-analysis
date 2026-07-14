@@ -1,0 +1,26 @@
+# Local environments and caches
+**/.venv/
+**/venv/
+**/__pycache__/
+**/.pytest_cache/
+**/*.py[cod]
+**/node_modules/
+
+# Credentials and local browser state
+**/.env
+**/browser_data/
+**/*_user_data_dir/
+**/Default/Cookies
+
+# Local databases and generated runtime data
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+MediaCrawler/data/
+
+# Editor and OS files
+**/.idea/
+**/.vscode/
+**/.DS_Store
+Thumbs.db
+

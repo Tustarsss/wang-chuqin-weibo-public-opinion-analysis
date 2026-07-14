@@ -1,0 +1,71 @@
+{
+  "raw_records": 419,
+  "clean_records": 74,
+  "by_result": {
+    "loss": 35,
+    "win": 39
+  },
+  "balanced_records": 45,
+  "balanced_by_result": {
+    "loss": 22,
+    "win": 23
+  },
+  "balanced_by_event": {
+    "loss_20240731_paris_moregard": 5,
+    "loss_20250208_singapore_liang": 6,
+    "loss_20250419_worldcup_calderano": 5,
+    "win_20250525_doha_calderano": 5,
+    "win_20250714_us_smash_harimoto": 6,
+    "loss_20250811_yokohama_harimoto": 6,
+    "win_20250316_chongqing_lin": 6,
+    "win_20251005_china_smash_lebrun": 6
+  },
+  "by_event": {
+    "loss_20240731_paris_moregard": {
+      "raw": 39,
+      "outside_window": 34,
+      "kept": 5
+    },
+    "loss_20250208_singapore_liang": {
+      "raw": 37,
+      "kept": 6,
+      "outside_window": 30,
+      "duplicate": 1
+    },
+    "loss_20250419_worldcup_calderano": {
+      "raw": 63,
+      "outside_window": 54,
+      "kept": 5,
+      "duplicate": 4
+    },
+    "win_20250525_doha_calderano": {
+      "raw": 64,
+      "kept": 5,
+      "outside_window": 59
+    },
+    "win_20250714_us_smash_harimoto": {
+      "raw": 28,
+      "kept": 15,
+      "outside_window": 10,
+      "duplicate": 3
+    },
+    "loss_20250811_yokohama_harimoto": {
+      "raw": 33,
+      "kept": 19,
+      "outside_window": 11,
+      "duplicate": 3
+    },
+    "win_20250316_chongqing_lin": {
+      "raw": 45,
+      "outside_window": 31,
+      "kept": 12,
+      "duplicate": 2
+    },
+    "win_20251005_china_smash_lebrun": {
+      "raw": 43,
+      "outside_window": 35,
+      "kept": 7,
+      "irrelevant": 1
+    }
+  }
+}

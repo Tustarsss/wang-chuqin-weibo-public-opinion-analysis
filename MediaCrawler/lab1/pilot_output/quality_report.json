@@ -1,0 +1,21 @@
+{
+  "raw_records": 15,
+  "clean_records": 7,
+  "by_result": {
+    "loss": 7
+  },
+  "by_event": {
+    "win_20240317_singapore_liang": {},
+    "loss_20240731_paris_moregard": {},
+    "loss_20250208_singapore_liang": {},
+    "loss_20250419_worldcup_calderano": {},
+    "win_20250524_doha_moregard": {},
+    "win_20250525_doha_calderano": {},
+    "win_20250714_us_smash_harimoto": {},
+    "loss_20250811_yokohama_harimoto": {
+      "raw": 15,
+      "kept": 7,
+      "outside_window": 8
+    }
+  }
+}
