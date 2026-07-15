@@ -112,3 +112,41 @@ def test_export_human_fields_explicitly_accept_none() -> None:
 
     assert hints["selected_option"] == str | None
     assert hints["human_note"] == str | None
+
+
+def test_export_protects_authoritative_packet_facts_and_warnings(
+    loss_packet: Any,
+) -> None:
+    from lab3.models import GeneratedResult
+
+    offline, export = _modules()
+    malicious_brief = GeneratedResult(
+        mode="offline",
+        payload={
+            "title": "错误简报",
+            "facts": ("FABRICATED",),
+            "observations": ("仅用于测试的观察。",),
+            "decision_focus": ("仅用于测试的关注点。",),
+            "limitations": (),
+        },
+    )
+    strategies = offline.strategies_offline(
+        loss_packet,
+        goal="内部复盘",
+        audience="团队",
+    )
+
+    markdown = export.export_markdown(
+        loss_packet,
+        malicious_brief,
+        strategies,
+    )
+
+    assert "FABRICATED" not in markdown
+    assert all(fact in markdown for fact in loss_packet.facts)
+    assert all(warning in markdown for warning in loss_packet.warnings)
+    assert any("n=1" in warning for warning in loss_packet.warnings)
+    assert any(
+        "不能代表微博总体舆情" in warning
+        for warning in loss_packet.warnings
+    )

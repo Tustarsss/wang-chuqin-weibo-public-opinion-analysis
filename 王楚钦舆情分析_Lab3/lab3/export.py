@@ -24,6 +24,12 @@ def export_markdown(
 ) -> str:
     """Return a complete Markdown report without executing embedded HTML."""
 
+    limitations = tuple(
+        dict.fromkeys(
+            packet.warnings
+            + _as_items(brief.payload.get("limitations"))
+        )
+    )
     lines = [
         f"# {_md_text(brief.payload.get('title') or packet.label)}",
         "",
@@ -42,7 +48,7 @@ def export_markdown(
         "## 事实",
         "",
     ]
-    _append_items(lines, brief.payload.get("facts", packet.facts))
+    _append_items(lines, packet.facts)
 
     lines.extend(("", "## 观察", ""))
     _append_items(lines, brief.payload.get("observations"))
@@ -51,7 +57,7 @@ def export_markdown(
     _append_items(lines, brief.payload.get("decision_focus"))
 
     lines.extend(("", "## 局限", ""))
-    _append_items(lines, brief.payload.get("limitations", packet.warnings))
+    _append_items(lines, limitations)
 
     lines.extend(("", "## 证据", ""))
     if not packet.citations:
