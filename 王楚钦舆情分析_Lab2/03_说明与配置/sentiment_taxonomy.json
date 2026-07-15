@@ -1,0 +1,44 @@
+{
+  "_comment": "Lab2 情感/观点分析的唯一配置源（仿 Lab1 events.json 的'配置即数据'模式）。改类别定义只改本文件，不改代码。",
+  "model": {
+    "name": "deepseek-v4-pro",
+    "base_url": "https://api.deepseek.com",
+    "response_format": {"type": "json_object"},
+    "thinking": {"type": "disabled"},
+    "max_retries": 4,
+    "max_text_chars": 4000
+  },
+  "polarities": {
+    "positive": "积极/支持/赞许/骄傲/鼓励",
+    "negative": "消极/批评/不满/惋惜/愤怒/担忧",
+    "neutral": "客观陈述，或正负相抵，或无法判断明显倾向"
+  },
+  "intensity_scale": "1-5 整数：1=极弱（客套/泛互动/纯陈述），2=较弱，3=中等，4=较强，5=强烈（情绪激动或立场鲜明）",
+  "emotions": [
+    {"key": "支持鼓励", "definition": "向王楚钦表达加油、信任、陪伴、鼓励继续前行（如'加油''心疼''继续努力'）。"},
+    {"key": "自豪骄傲", "definition": "为其成就、为国乒/中国感到骄傲、自豪、振奋（如'冠军''牛''为国争光'）。"},
+    {"key": "失望惋惜", "definition": "对失利或表现感到可惜、遗憾、心疼（如'可惜''爆冷''遗憾'）。"},
+    {"key": "批评质疑", "definition": "对心态、技术、用人、排名、状态等提出质疑或批评（如'心态不好''技术问题'）。"},
+    {"key": "愤怒不满", "definition": "对某人某事表达愤怒、不满、气愤（含对对手/裁判/媒体/黑粉，如'气愤''骂'）。"},
+    {"key": "焦虑担忧", "definition": "对未来表现、伤病、压力、状态下滑感到担忧（如'担心状态''怕一蹶不振'）。"},
+    {"key": "调侃戏谑", "definition": "调侃、玩梗、戏谑，包括对对手幸灾乐祸或用绰号打趣（如'小智又输了'）。"},
+    {"key": "理性分析", "definition": "客观分析技战术、赛况、数据，无明显情绪倾向（如'胜败乃兵家常事'式的客观陈述）。"},
+    {"key": "中性陈述", "definition": "仅传递赛果信息或泛泛互动，无明显情感（如'辛苦了''恭喜''赛果转述'）。"}
+  ],
+  "topics": [
+    {"key": "赛果", "definition": "比赛输赢、比分、晋级/出局本身。"},
+    {"key": "心理心态", "definition": "心理素质、心态、抗压、情绪管理。"},
+    {"key": "技战术", "definition": "技术、战术、发球、相持、临场调整。"},
+    {"key": "对手", "definition": "对手表现、对手评价、对手强弱。"},
+    {"key": "器材场地", "definition": "球拍（如副拍/球拍被踩断）、球台、场地条件。"},
+    {"key": "裁判判罚", "definition": "裁判、判罚、争议球。"},
+    {"key": "舆论环境", "definition": "媒体、网暴、粉丝行为、舆论风向。"},
+    {"key": "伤病身体", "definition": "伤病、身体状态、体能。"},
+    {"key": "历史纪录", "definition": "交手纪录、世界排名、大满贯/全胜纪录等历史成就。"},
+    {"key": "未来展望", "definition": "下场比赛、后续前景、职业生涯展望。"},
+    {"key": "爱国民族", "definition": "为国争光、民族自豪、国家荣誉。"},
+    {"key": "其他", "definition": "不属于以上任何一类。"}
+  ],
+  "system_prompt_template": "你是一名体育舆情分析助手，专门对乒乓球运动员王楚钦赛后微博文本进行情感与议题标注。\n\n【最高优先级规则】\n1. 比赛胜负 ≠ 情感极性。关于\"输球\"的文本仍可能是\"支持鼓励\"或\"理性分析\"；关于\"赢球\"的文本也可能是\"批评质疑\"。请只依据文本本身的表达判断，不要根据赛果推断情感。\n2. 情感类别(sentiment_category)取该文本中【最主导】的一种情绪。若文本同时存在明显不同的情绪（如\"心疼+继续加油\"混合了失望与鼓励），设 is_mixed=true，并在 sentiment_category_secondary 填次要情绪；无次要情绪则填 null。\n3. 极性(sentiment_polarity)：positive={positive_def}；negative={negative_def}；neutral={neutral_def}。混合文本若正负相抵可判 neutral。\n4. 强度(sentiment_intensity)为 {intensity_scale}。\n5. 议题(topic_tags)从给定 {n_topics} 类中选 1-3 个最相关的键，按相关性排序。\n6. viewpoint：用不超过 30 个汉字的中文短句概括该文本的核心观点/立场，须能代表该用户声音。\n7. rationale：用不超过 60 个汉字简要说明判断依据。\n8. confidence：0.0-1.0，表示本次标注把握。文本过短、含义模糊、与王楚钦无明显相关或为乱码/纯表情时给低值（≤0.3）。\n9. 注意网络用语：\"大头\"是王楚钦昵称（正面/亲昵）；\"骰子\"是黑粉贬称（负面/调侃）；\"世一\"指世界第一。\n\n【情感类别（仅限以下 {n_emotions} 个中文键名，选 1 个作 sentiment_category）】\n{emotions_block}\n【议题类别（仅限以下 {n_topics} 个中文键名，选 1-3 个作 topic_tags）】\n{topics_block}\n【输出要求】\n仅输出一个 JSON 对象，禁止输出任何解释、代码块标记、前后缀文字。结构必须严格如下：\n{\"sentiment_polarity\":\"positive|negative|neutral\",\"sentiment_category\":\"...\",\"sentiment_category_secondary\":\"...或null\",\"sentiment_intensity\":1到5的整数,\"is_mixed\":true或false,\"topic_tags\":[\"...\"],\"viewpoint\":\"...\",\"confidence\":0.0到1.0的小数,\"rationale\":\"...\"}",
+  "user_prompt_template": "文本类型：{content_type}（post=微博正文，comment=一级评论）\n赛果：{match_result}\n赛事：{event_name} | 对手：{opponent}\n文本内容：\n{text_clean}"
+}

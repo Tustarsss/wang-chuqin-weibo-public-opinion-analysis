@@ -1,0 +1,12 @@
+{
+  "model": "deepseek-v4-pro",
+  "request_config": "json_mode+thinking_disabled",
+  "thinking_disabled_reasoning_content_empty": true,
+  "json_mode": true,
+  "posts_total": 45,
+  "posts_already_done": 45,
+  "posts_todo": 0,
+  "comments_total": 61,
+  "comments_already_done": 61,
+  "comments_todo": 0
+}

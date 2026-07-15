@@ -8,6 +8,8 @@
 
 # Credentials and local browser state
 **/.env
+**/api.txt
+api.txt
 **/browser_data/
 **/*_user_data_dir/
 **/Default/Cookies
@@ -17,6 +19,9 @@
 **/*.sqlite
 **/*.sqlite3
 MediaCrawler/data/
+
+# Lab2 runtime checkpoints (regenerable, not deliverables)
+王楚钦舆情分析_Lab2/01_输出/*_checkpoint.jsonl
 
 # Editor and OS files
 **/.idea/

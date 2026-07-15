@@ -1,0 +1,172 @@
+{
+  "status": "pass_with_warnings",
+  "schema_assertions_passed": true,
+  "lab3_ready": true,
+  "summary": {
+    "active_events": 8,
+    "posts": 45,
+    "comments": 61,
+    "spot_checks_passed": 5,
+    "spot_checks_total": 5,
+    "errors": 0,
+    "warnings": 2
+  },
+  "event_counts": {
+    "posts": {
+      "loss_20240731_paris_moregard": 5,
+      "loss_20250208_singapore_liang": 6,
+      "loss_20250419_worldcup_calderano": 5,
+      "loss_20250811_yokohama_harimoto": 6,
+      "win_20250316_chongqing_lin": 6,
+      "win_20250525_doha_calderano": 5,
+      "win_20250714_us_smash_harimoto": 6,
+      "win_20251005_china_smash_lebrun": 6
+    },
+    "comments": {
+      "loss_20240731_paris_moregard": 10,
+      "loss_20250208_singapore_liang": 1,
+      "loss_20250419_worldcup_calderano": 10,
+      "loss_20250811_yokohama_harimoto": 10,
+      "win_20250316_chongqing_lin": 10,
+      "win_20250525_doha_calderano": 10,
+      "win_20250714_us_smash_harimoto": 10
+    }
+  },
+  "errors": [],
+  "warnings": [
+    "comments: 零记录事件 ['win_20251005_china_smash_lebrun']",
+    "comments: 少于 3 条的稀疏事件 ['loss_20250208_singapore_liang']"
+  ],
+  "manual_spot_check_regression": [
+    {
+      "content_type": "comment",
+      "record_id": "5132082504798861",
+      "case": "输球后仍支持，验证赛果不决定极性",
+      "expected": {
+        "sentiment_polarity": "positive",
+        "sentiment_category": "支持鼓励"
+      },
+      "text_clean": "实诚的大头，无论单打还是双打，你都全力以赴了。加油",
+      "actual": {
+        "sentiment_polarity": "positive",
+        "sentiment_category": "支持鼓励",
+        "is_mixed": false,
+        "topic_tags": [
+          "心理心态"
+        ],
+        "confidence": 0.9
+      },
+      "checks": {
+        "sentiment_polarity": true,
+        "sentiment_category": true
+      },
+      "passed": true
+    },
+    {
+      "content_type": "post",
+      "record_id": "5062247656721642",
+      "case": "球拍被踩断与心疼输球的混合表达",
+      "expected": {
+        "sentiment_polarity": "negative",
+        "sentiment_category": "失望惋惜",
+        "is_mixed": true,
+        "topic_contains": "器材场地"
+      },
+      "text_clean": "#王楚钦vs莫雷加德#第一次为一名运动员哭😭。哭，是因为心疼他好不容易一拍一拍打到男单世界第一，然后在他征战奥运男单的第二步老天爷便跟他开了个很大的玩笑，陪伴他很久的拍子被记者踩断了。2024年7月31日，他输了。",
+      "actual": {
+        "sentiment_polarity": "negative",
+        "sentiment_category": "失望惋惜",
+        "is_mixed": true,
+        "topic_tags": [
+          "心理心态",
+          "赛果",
+          "器材场地"
+        ],
+        "confidence": 0.95
+      },
+      "checks": {
+        "sentiment_polarity": true,
+        "sentiment_category": true,
+        "is_mixed": true,
+        "topic_contains": true
+      },
+      "passed": true
+    },
+    {
+      "content_type": "comment",
+      "record_id": "5062460966962097",
+      "case": "“世一也就是出勤率”的贬低语义",
+      "expected": {
+        "sentiment_polarity": "negative",
+        "sentiment_category": "批评质疑"
+      },
+      "text_clean": "本来就是技术加心态问题 世一也就是出勤率",
+      "actual": {
+        "sentiment_polarity": "negative",
+        "sentiment_category": "批评质疑",
+        "is_mixed": false,
+        "topic_tags": [
+          "技战术",
+          "心理心态"
+        ],
+        "confidence": 0.9
+      },
+      "checks": {
+        "sentiment_polarity": true,
+        "sentiment_category": true
+      },
+      "passed": true
+    },
+    {
+      "content_type": "comment",
+      "record_id": "5198540999494928",
+      "case": "“骰子”黑称的调侃与负向语义",
+      "expected": {
+        "sentiment_polarity": "negative",
+        "sentiment_category": "调侃戏谑"
+      },
+      "text_clean": "恭喜张本终于战胜骰子",
+      "actual": {
+        "sentiment_polarity": "negative",
+        "sentiment_category": "调侃戏谑",
+        "is_mixed": false,
+        "topic_tags": [
+          "对手",
+          "舆论环境"
+        ],
+        "confidence": 0.9
+      },
+      "checks": {
+        "sentiment_polarity": true,
+        "sentiment_category": true
+      },
+      "passed": true
+    },
+    {
+      "content_type": "comment",
+      "record_id": "5198554912003467",
+      "case": "乱码应降置信度而非伪造情绪",
+      "expected": {
+        "sentiment_polarity": "neutral",
+        "sentiment_category": "中性陈述",
+        "confidence_max": 0.3
+      },
+      "text_clean": "dhhdjen",
+      "actual": {
+        "sentiment_polarity": "neutral",
+        "sentiment_category": "中性陈述",
+        "is_mixed": false,
+        "topic_tags": [
+          "其他"
+        ],
+        "confidence": 0.1
+      },
+      "checks": {
+        "sentiment_polarity": true,
+        "sentiment_category": true,
+        "confidence_max": true
+      },
+      "passed": true
+    }
+  ]
+}

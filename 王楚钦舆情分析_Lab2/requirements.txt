@@ -1,0 +1,8 @@
+# Lab 2 依赖 —— 王楚钦赛后微博舆情情感/观点分析
+# 用 uv 创建虚拟环境后安装：uv pip install -r requirements.txt
+
+# DeepSeek 走 OpenAI 兼容接口，用 openai SDK 获得 JSON mode 与内置重试
+openai>=1.0.0
+
+# 仅 visualize.py 用（4 张图表）
+matplotlib>=3.8
