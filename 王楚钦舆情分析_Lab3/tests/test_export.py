@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib
 from typing import Any
+from typing import get_type_hints
 
 
 def _modules():
@@ -102,3 +103,12 @@ def test_export_neutralizes_executable_html(loss_packet: Any) -> None:
 
     assert "<script" not in markdown.lower()
     assert "&lt;script&gt;" in markdown.lower()
+
+
+def test_export_human_fields_explicitly_accept_none() -> None:
+    _, export = _modules()
+
+    hints = get_type_hints(export.export_markdown)
+
+    assert hints["selected_option"] == str | None
+    assert hints["human_note"] == str | None

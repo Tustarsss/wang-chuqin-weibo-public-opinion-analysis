@@ -112,14 +112,17 @@ def strategies_offline(
         if evidence_ids
         else ("证据不足：当前证据包无可用引文，执行前须补充人工核验。",)
     )
+    (
+        emotion_action,
+        facts_action,
+        monitoring_action,
+        source_check,
+    ) = _strategy_wording(packet, goal, audience)
     options = (
         {
             "name": "及时情绪回应",
             "intensity": "轻量快速",
-            "action": (
-                f"面向{audience}回应可确认的情绪关切，重申当前事实与"
-                "证据边界，不扩展未核验判断。"
-            ),
+            "action": emotion_action,
             "timing": "争议出现且事实边界已确认时及时启动。",
             "evidence_ids": evidence_ids,
             "benefits": (
@@ -139,10 +142,7 @@ def strategies_offline(
         {
             "name": "事实说明与复盘",
             "intensity": "完整说明",
-            "action": (
-                f"围绕“{goal}”整理已确认事实，分开呈现正文与评论的"
-                "样本观察，并说明仍待核验之处。"
-            ),
+            "action": facts_action,
             "timing": "事实与表述完成交叉核验后发布或用于内部复盘。",
             "evidence_ids": evidence_ids,
             "benefits": (
@@ -154,7 +154,7 @@ def strategies_offline(
                 "细节过多可能放大次要争议。",
             ),
             "checks": (
-                "确认正文指标与评论指标没有混用。",
+                source_check,
                 "确认每项判断均可追溯到当前数据包。",
             )
             + evidence_check,
@@ -162,10 +162,7 @@ def strategies_offline(
         {
             "name": "持续监测",
             "intensity": "持续观察",
-            "action": (
-                "暂不扩大结论，持续观察同一范围内的新证据，并记录"
-                "主题、情绪和来源是否出现描述性变化。"
-            ),
+            "action": monitoring_action,
             "timing": "在后续观察期持续进行，并在证据变化时人工复核。",
             "evidence_ids": evidence_ids,
             "benefits": (
@@ -200,11 +197,24 @@ def strategies_offline(
 def _answer_loss_all_negative(
     packet: EvidencePacket,
 ) -> tuple[bool, str, tuple[str, ...]]:
-    comments = packet.comments
-    if packet.scope.kind != "loss_group":
+    comments: MetricSummary | None = None
+    if packet.scope.kind == "loss_group":
+        comments = packet.comments
+    elif (
+        packet.scope.kind == "win_loss_comparison"
+        and packet.comment_comparison is not None
+    ):
+        comments = packet.comment_comparison.loss
+    elif (
+        packet.scope.kind == "single_event"
+        and packet.scope.event_id is not None
+        and packet.scope.event_id.startswith("loss_")
+    ):
+        comments = packet.comments
+    else:
         return (
             False,
-            "当前证据范围不是负场组，无法可靠判断该预设问题。",
+            "当前证据范围没有可识别的输球评论指标，无法可靠判断该预设问题。",
             (),
         )
     if comments is None or comments.n == 0:
@@ -216,23 +226,55 @@ def _answer_loss_all_negative(
 
     polarity = comments.polarity_pct
     comment_ids = tuple(
-        citation.record_id
-        for citation in packet.citations
-        if citation.content_type == "comment"
+        dict.fromkeys(
+            citation.record_id
+            for citation in packet.citations
+            if citation.content_type == "comment"
+            and citation.event_id.startswith("loss_")
+        )
     )
-    interpretation = (
-        "输球不等于全部负面。当前评论样本的极性构成为："
+    mix = (
+        "当前输球评论样本的极性构成为："
         f"正面 {polarity['positive']:.4f}%、"
         f"中性 {polarity['neutral']:.4f}%、"
         f"负面 {polarity['negative']:.4f}%。"
-        "该结论只描述当前案例评论，并以当前评论引文为核验入口。"
     )
+    if polarity["positive"] > 0.0 or polarity["neutral"] > 0.0:
+        interpretation = (
+            "输球不等于全部负面。"
+            + mix
+            + "该结论只描述当前案例评论，并以当前评论引文为核验入口。"
+        )
+    else:
+        interpretation = (
+            mix
+            + "当前样本中的评论全部为负面；这一结果只描述当前案例，"
+            "不能外推到微博总体舆情。"
+        )
     return True, interpretation, comment_ids
 
 
 def _answer_source_difference(
     packet: EvidencePacket,
 ) -> tuple[bool, str, tuple[str, ...]]:
+    if packet.scope.kind == "win_loss_comparison":
+        posts = packet.post_comparison
+        comments = packet.comment_comparison
+        if posts is None or comments is None:
+            return (
+                False,
+                "当前胜负对比证据未同时提供正文与评论指标，无法可靠比较来源。",
+                (),
+            )
+        interpretation = (
+            f"正文胜组：{_polarity_mix(posts.win)}；"
+            f"正文负组：{_polarity_mix(posts.loss)}；"
+            f"评论胜组：{_polarity_mix(comments.win)}；"
+            f"评论负组：{_polarity_mix(comments.loss)}。"
+            "正文与评论均按胜负组分别呈现，只作描述性比较，不作因果解释。"
+        )
+        return True, interpretation, _citation_ids(packet)
+
     posts = packet.posts
     comments = packet.comments
     if (
@@ -364,6 +406,109 @@ def _polarity_mix(summary: MetricSummary) -> str:
     )
 
 
+def _strategy_wording(
+    packet: EvidencePacket,
+    goal: str,
+    audience: str,
+) -> tuple[str, str, str, str]:
+    post_n = _source_record_count(packet, "post")
+    comment_n = _source_record_count(packet, "comment")
+
+    if comment_n == 0 and (post_n is None or post_n == 0):
+        return (
+            "评论零记录且证据不足；仅作克制表达或暂缓判断，不推断受众情绪。",
+            (
+                "评论零记录且证据不足；只陈述证据包中的已核实事实与"
+                "覆盖边界，不描述评论趋势。"
+            ),
+            (
+                "评论零记录且证据不足；持续监测评论来源的新证据，"
+                "并在出现记录后人工复核。"
+            ),
+            "确认没有把评论零记录写成情绪或主题趋势。",
+        )
+
+    if post_n == 0 and (comment_n is None or comment_n == 0):
+        return (
+            "正文零记录且证据不足；仅作克制表达或暂缓判断。",
+            "正文零记录且证据不足；只陈述证据包中的已核实事实与覆盖边界。",
+            "正文零记录且证据不足；持续监测正文来源的新证据。",
+            "确认没有把正文零记录写成情绪或主题趋势。",
+        )
+
+    if post_n is not None and post_n > 0 and (
+        comment_n is None or comment_n == 0
+    ):
+        zero_note = "，评论零记录" if comment_n == 0 else ""
+        return (
+            (
+                f"当前仅有正文证据{zero_note}；面向{audience}只回应"
+                "可确认关切，不据此推断评论情绪。"
+            ),
+            (
+                f"围绕“{goal}”仅依据正文样本与已核实事实作说明，"
+                "并标明证据边界。"
+            ),
+            "暂不扩大结论，持续监测正文来源的新证据并人工复核。",
+            "确认仅使用正文指标，未引入无记录来源的趋势判断。",
+        )
+
+    if comment_n is not None and comment_n > 0 and (
+        post_n is None or post_n == 0
+    ):
+        zero_note = "，正文零记录" if post_n == 0 else ""
+        return (
+            (
+                f"当前仅有评论证据{zero_note}；面向{audience}回应"
+                "可确认的评论关切，不扩展未核验判断。"
+            ),
+            (
+                f"围绕“{goal}”仅依据评论样本与已核实事实作说明，"
+                "并标明证据边界。"
+            ),
+            "暂不扩大结论，持续监测评论来源的新证据并人工复核。",
+            "确认仅使用评论指标，未引入无记录来源的趋势判断。",
+        )
+
+    if post_n is not None and comment_n is not None:
+        return (
+            (
+                f"面向{audience}回应可确认的情绪关切，重申当前事实与"
+                "证据边界，不扩展未核验判断。"
+            ),
+            (
+                f"围绕“{goal}”整理已确认事实，分开呈现正文与评论的"
+                "样本观察，并说明仍待核验之处。"
+            ),
+            (
+                "暂不扩大结论，持续监测正文与评论来源的新证据，"
+                "并记录描述性变化。"
+            ),
+            "确认正文指标与评论指标没有混用。",
+        )
+
+    return (
+        "当前没有可用来源指标且证据不足；仅作克制表达或暂缓判断。",
+        "当前没有可用来源指标；只陈述证据包中的已核实事实与覆盖边界。",
+        "持续监测当前范围内的新证据，并在出现记录后人工复核。",
+        "确认没有把缺失来源写成情绪或主题趋势。",
+    )
+
+
+def _source_record_count(packet: EvidencePacket, source: str) -> int | None:
+    summary = packet.posts if source == "post" else packet.comments
+    if summary is not None:
+        return summary.n
+    comparison = (
+        packet.post_comparison
+        if source == "post"
+        else packet.comment_comparison
+    )
+    if comparison is None:
+        return None
+    return comparison.win.n + comparison.loss.n
+
+
 def _limitations(packet: EvidencePacket) -> tuple[str, ...]:
     limitations = list(packet.warnings)
     if not any("不能代表微博总体舆情" in item for item in limitations):
@@ -372,4 +517,6 @@ def _limitations(packet: EvidencePacket) -> tuple[str, ...]:
 
 
 def _citation_ids(packet: EvidencePacket) -> tuple[str, ...]:
-    return tuple(citation.record_id for citation in packet.citations)
+    return tuple(
+        dict.fromkeys(citation.record_id for citation in packet.citations)
+    )

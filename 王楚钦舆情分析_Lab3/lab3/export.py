@@ -19,8 +19,8 @@ def export_markdown(
     packet: EvidencePacket,
     brief: GeneratedResult,
     strategies: GeneratedResult,
-    selected_option: str = "",
-    human_note: str = "",
+    selected_option: str | None = "",
+    human_note: str | None = "",
 ) -> str:
     """Return a complete Markdown report without executing embedded HTML."""
 

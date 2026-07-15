@@ -51,3 +51,18 @@ def zero_comment_packet(project_data):
             event_id="win_20251005_china_smash_lebrun",
         ),
     )
+
+
+@pytest.fixture()
+def comparison_packet(project_data):
+    from lab3.evidence import build_evidence
+    from lab3.models import AnalysisScope
+
+    return build_evidence(
+        project_data,
+        AnalysisScope(
+            kind="win_loss_comparison",
+            source="both",
+            audience="媒体",
+        ),
+    )
