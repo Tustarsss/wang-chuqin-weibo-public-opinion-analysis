@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+import json
 from collections.abc import Mapping
 from dataclasses import replace
 from typing import Any
@@ -88,6 +89,14 @@ def _strategy_payload(citation_id: str) -> dict[str, Any]:
     }
 
 
+def _output_contract(task: str) -> dict[str, Any]:
+    opening = "<output_contract>"
+    closing = "</output_contract>"
+    assert opening in task and closing in task
+    encoded = task.split(opening, 1)[1].split(closing, 1)[0].strip()
+    return json.loads(encoded)
+
+
 @pytest.mark.parametrize("service_name", ["brief", "qa", "strategy"])
 def test_services_skip_online_generation_when_packet_has_no_citations(
     service_name: str,
@@ -164,6 +173,31 @@ def test_online_brief_uses_model_wording_but_forces_packet_facts_and_limits(
     assert fake.calls[0]["validator"](_brief_payload(citation_id)) is True
 
 
+def test_brief_task_provides_machine_readable_output_contract(
+    loss_packet: Any,
+) -> None:
+    module = _services()
+    citation_id = loss_packet.citations[0].record_id
+    fake = StubLLM(_brief_payload(citation_id))
+
+    module.BriefService(fake).generate(loss_packet)
+
+    contract = _output_contract(fake.calls[0]["task"])
+    assert contract["required"] == [
+        "title",
+        "facts",
+        "observations",
+        "decision_focus",
+        "limitations",
+        "citation_ids",
+    ]
+    citation_rule = contract["properties"]["citation_ids"]
+    assert citation_rule["minItems"] == 1
+    assert citation_rule["items"]["enum"] == sorted(
+        citation.record_id for citation in loss_packet.citations
+    )
+
+
 def test_brief_unknown_citation_or_missing_field_is_rejected_and_downgraded(
     loss_packet: Any,
 ) -> None:
@@ -238,6 +272,29 @@ def test_online_qa_keeps_only_packet_fact_subset_and_known_citations(
     }
     assert fake.calls[0]["evidence"]["question"] == question
     assert fake.calls[0]["evidence"]["preset"] is False
+
+
+def test_qa_task_contract_lists_exact_allowed_facts_and_citations(
+    loss_packet: Any,
+) -> None:
+    module = _services()
+    citation_id = loss_packet.citations[0].record_id
+    fake = StubLLM(_qa_payload(loss_packet, citation_id))
+
+    module.QAService(fake).answer(
+        "当前样本能说明什么？",
+        loss_packet,
+    )
+
+    contract = _output_contract(fake.calls[0]["task"])
+    properties = contract["properties"]
+    assert properties["facts"]["items"]["enum"] == sorted(
+        loss_packet.facts
+    )
+    assert properties["citation_ids"]["items"]["enum"] == sorted(
+        citation.record_id for citation in loss_packet.citations
+    )
+    assert "answerable=true" in contract["conditionalRules"][0]
 
 
 def test_qa_fact_outside_packet_is_rejected_and_downgraded(
@@ -364,6 +421,33 @@ def test_online_strategy_requires_three_options_and_forces_user_inputs(
     assert "非预测" in result.payload["disclaimer"]
     assert fake.calls[0]["evidence"]["goal"] == "回应争议"
     assert fake.calls[0]["evidence"]["audience"] == "球迷"
+
+
+def test_strategy_task_contract_requires_three_options_and_known_evidence(
+    loss_packet: Any,
+) -> None:
+    module = _services()
+    citation_id = loss_packet.citations[0].record_id
+    fake = StubLLM(_strategy_payload(citation_id))
+
+    module.StrategyService(fake).generate(
+        loss_packet,
+        goal="回应争议",
+        audience="球迷",
+    )
+
+    contract = _output_contract(fake.calls[0]["task"])
+    options = contract["properties"]["options"]
+    assert options["minItems"] == options["maxItems"] == 3
+    evidence_rule = options["items"]["properties"]["evidence_ids"]
+    assert evidence_rule["minItems"] == 1
+    assert evidence_rule["items"]["enum"] == sorted(
+        citation.record_id for citation in loss_packet.citations
+    )
+    assert contract["properties"]["disclaimer"]["requiredSubstrings"] == [
+        "非预测",
+        "人工",
+    ]
 
 
 def test_online_strategy_forces_authoritative_packet_limitations(

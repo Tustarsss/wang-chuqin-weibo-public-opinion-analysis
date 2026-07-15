@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 from collections.abc import Callable, Mapping
 from pathlib import Path
@@ -58,7 +59,7 @@ class BriefService:
         validator = lambda payload: _validate_brief(payload, allowed_ids)
         payload, reason = _request_online(
             self.client,
-            _BRIEF_TASK,
+            _brief_task(packet.facts, allowed_ids),
             evidence,
             validator,
         )
@@ -117,7 +118,7 @@ class QAService:
         )
         payload, reason = _request_online(
             self.client,
-            _QA_TASK,
+            _qa_task(allowed_facts, allowed_ids),
             evidence,
             validator,
         )
@@ -175,7 +176,7 @@ class StrategyService:
         validator = lambda payload: _validate_strategy(payload, allowed_ids)
         payload, reason = _request_online(
             self.client,
-            _STRATEGY_TASK,
+            _strategy_task(goal, audience, allowed_ids),
             evidence,
             validator,
         )
@@ -204,6 +205,130 @@ def _coerce_client(
     if client is not None:
         return client
     return DeepSeekClient(repo_root or _REPO_ROOT)
+
+
+def _brief_task(
+    allowed_facts: tuple[str, ...],
+    allowed_ids: frozenset[str],
+) -> str:
+    properties = {
+        "title": _string_schema(),
+        "facts": _string_array_schema(enum=allowed_facts),
+        "observations": _string_array_schema(min_items=1),
+        "decision_focus": _string_array_schema(min_items=1),
+        "limitations": _string_array_schema(),
+        "citation_ids": _string_array_schema(
+            min_items=1,
+            enum=allowed_ids,
+        ),
+    }
+    return _task_with_contract(
+        _BRIEF_TASK,
+        _object_contract(tuple(properties), properties),
+    )
+
+
+def _qa_task(
+    allowed_facts: frozenset[str],
+    allowed_ids: frozenset[str],
+) -> str:
+    properties = {
+        "question": _string_schema(),
+        "answerable": {"type": "boolean"},
+        "facts": _string_array_schema(enum=allowed_facts),
+        "interpretation": _string_schema(),
+        "limitations": _string_array_schema(),
+        "citation_ids": _string_array_schema(enum=allowed_ids),
+    }
+    contract = _object_contract(tuple(properties), properties)
+    contract["conditionalRules"] = [
+        "answerable=true 时 facts 和 citation_ids 必须至少各含 1 项；"
+        "answerable=false 时二者可以为空数组。"
+    ]
+    return _task_with_contract(_QA_TASK, contract)
+
+
+def _strategy_task(
+    goal: str,
+    audience: str,
+    allowed_ids: frozenset[str],
+) -> str:
+    option_properties = {
+        "name": _string_schema(),
+        "action": _string_schema(),
+        "timing": _string_schema(),
+        "benefits": _string_array_schema(min_items=1),
+        "risks": _string_array_schema(min_items=1),
+        "checks": _string_array_schema(min_items=1),
+        "evidence_ids": _string_array_schema(
+            min_items=1,
+            enum=allowed_ids,
+        ),
+    }
+    option_contract = _object_contract(
+        tuple(option_properties),
+        option_properties,
+    )
+    properties = {
+        "goal": {**_string_schema(), "const": goal},
+        "audience": {**_string_schema(), "const": audience},
+        "options": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": option_contract,
+        },
+        "disclaimer": {
+            **_string_schema(),
+            "requiredSubstrings": ["非预测", "人工"],
+        },
+    }
+    return _task_with_contract(
+        _STRATEGY_TASK,
+        _object_contract(tuple(properties), properties),
+    )
+
+
+def _task_with_contract(task: str, contract: Mapping[str, Any]) -> str:
+    encoded = json.dumps(
+        contract,
+        ensure_ascii=False,
+        allow_nan=False,
+        separators=(",", ":"),
+    )
+    return f"{task}\n<output_contract>\n{encoded}\n</output_contract>"
+
+
+def _object_contract(
+    required: tuple[str, ...],
+    properties: Mapping[str, Any],
+) -> dict[str, Any]:
+    return {
+        "type": "object",
+        "required": list(required),
+        "properties": dict(properties),
+    }
+
+
+def _string_schema() -> dict[str, Any]:
+    return {"type": "string", "minLength": 1}
+
+
+def _string_array_schema(
+    *,
+    min_items: int = 0,
+    enum: Any = None,
+) -> dict[str, Any]:
+    item_schema = _string_schema()
+    if enum is not None:
+        item_schema["enum"] = sorted(enum)
+    schema: dict[str, Any] = {
+        "type": "array",
+        "items": item_schema,
+    }
+    if min_items:
+        schema["minItems"] = min_items
+    return schema
 
 
 def _request_online(

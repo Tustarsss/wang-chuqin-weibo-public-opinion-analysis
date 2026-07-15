@@ -237,6 +237,35 @@ def test_validator_failure_is_retried_once_then_fails(tmp_path: Any) -> None:
     assert len(fake.chat.completions.calls) == 2
 
 
+def test_validator_failure_retries_with_a_schema_repair_instruction(
+    tmp_path: Any,
+) -> None:
+    module = _llm_client()
+    fake = FakeSDKClient(['{"value": 1}', '{"value": 3}'])
+    client = module.DeepSeekClient(
+        tmp_path,
+        api_key="test-key",
+        sdk_client=fake,
+    )
+
+    result = client.generate(
+        "生成 JSON",
+        {"facts": []},
+        lambda payload: payload.get("value") == 3,
+    )
+
+    assert result.ok is True
+    assert len(fake.chat.completions.calls) == 2
+    first_messages = fake.chat.completions.calls[0]["messages"]
+    second_messages = fake.chat.completions.calls[1]["messages"]
+    assert len(first_messages) == 2
+    assert len(second_messages) == 3
+    repair = second_messages[-1]
+    assert repair["role"] == "user"
+    assert "未通过安全校验" in repair["content"]
+    assert "输出契约" in repair["content"]
+
+
 def test_exception_reason_does_not_leak_key_payload_or_exception_text(
     tmp_path: Any,
 ) -> None:

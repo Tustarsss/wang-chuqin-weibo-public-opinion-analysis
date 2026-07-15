@@ -30,6 +30,15 @@ _SYSTEM_PROMPT = """你是证据约束型舆情决策助手。
 不得把案例样本外推为微博总体舆情，必须保留证据边界与局限。
 输出只能是一个 JSON 对象，不得附带解释或代码块。
 结果仅供辅助判断，最终结论与行动必须由人工复核决定。"""
+_JSON_REPAIR_PROMPT = (
+    "上一输出不是有效 JSON 对象。请重新读取具体任务中的输出契约，"
+    "只返回一个符合契约的 JSON 对象，不要添加解释或代码块。"
+)
+_VALIDATION_REPAIR_PROMPT = (
+    "上一输出未通过安全校验。请重新读取具体任务中的输出契约和原始证据，"
+    "逐项修正字段类型、必填字段、数组数量及允许值；引用和事实只能从契约"
+    "列出的值中选择。只返回修正后的 JSON 对象。"
+)
 
 
 @dataclass(frozen=True)
@@ -160,6 +169,11 @@ class DeepSeekClient:
             payload = _parse_json_object(_response_content(response))
             if payload is None:
                 last_failure = "JSON"
+                if _attempt == 0:
+                    messages = (
+                        *messages,
+                        {"role": "user", "content": _JSON_REPAIR_PROMPT},
+                    )
                 continue
 
             try:
@@ -169,6 +183,14 @@ class DeepSeekClient:
             if is_valid:
                 return LLMCallResult(ok=True, payload=payload, reason=None)
             last_failure = "validation"
+            if _attempt == 0:
+                messages = (
+                    *messages,
+                    {
+                        "role": "user",
+                        "content": _VALIDATION_REPAIR_PROMPT,
+                    },
+                )
 
         if last_failure == "validation":
             reason = "模型输出连续两次未通过安全校验。"
