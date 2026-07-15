@@ -5,6 +5,7 @@
 **/.pytest_cache/
 **/*.py[cod]
 **/node_modules/
+.worktrees/
 
 # Credentials and local browser state
 **/.env
@@ -28,4 +29,3 @@ MediaCrawler/data/
 **/.vscode/
 **/.DS_Store
 Thumbs.db
-
