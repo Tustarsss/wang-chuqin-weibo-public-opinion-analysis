@@ -1,0 +1,2132 @@
+{
+  "meta": {
+    "model": "deepseek-v4-pro",
+    "emotions": [
+      "支持鼓励",
+      "自豪骄傲",
+      "失望惋惜",
+      "批评质疑",
+      "愤怒不满",
+      "焦虑担忧",
+      "调侃戏谑",
+      "理性分析",
+      "中性陈述"
+    ],
+    "topics": [
+      "赛果",
+      "心理心态",
+      "技战术",
+      "对手",
+      "器材场地",
+      "裁判判罚",
+      "舆论环境",
+      "伤病身体",
+      "历史纪录",
+      "未来展望",
+      "爱国民族",
+      "其他"
+    ],
+    "n_posts": 45,
+    "n_comments": 61,
+    "aggregation": "event_id 先分场统计，胜负组取各场指标均值；每场 <3 条排除"
+  },
+  "posts": {
+    "n_total": 45,
+    "by_event": {
+      "loss_20240731_paris_moregard": {
+        "event_id": "loss_20240731_paris_moregard",
+        "n": 5,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 1,
+          "negative": 2,
+          "neutral": 2
+        },
+        "polarity_pct": {
+          "positive": 20.0,
+          "negative": 40.0,
+          "neutral": 40.0
+        },
+        "mean_score": -0.2,
+        "engagement_weighted_score": 0.0,
+        "emotion_dist": {
+          "支持鼓励": 1,
+          "自豪骄傲": 1,
+          "失望惋惜": 1,
+          "批评质疑": 0,
+          "愤怒不满": 0,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 1,
+          "中性陈述": 1
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 20.0,
+          "自豪骄傲": 20.0,
+          "失望惋惜": 20.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 20.0,
+          "中性陈述": 20.0
+        },
+        "dominant_emotion": "中性陈述",
+        "topic_counts": {
+          "赛果": 5,
+          "心理心态": 3,
+          "技战术": 1,
+          "对手": 0,
+          "器材场地": 1,
+          "裁判判罚": 0,
+          "舆论环境": 0,
+          "伤病身体": 0,
+          "历史纪录": 1,
+          "未来展望": 1,
+          "爱国民族": 1,
+          "其他": 0
+        },
+        "topic_mention_rate": {
+          "赛果": 1.0,
+          "心理心态": 0.6,
+          "技战术": 0.2,
+          "对手": 0.0,
+          "器材场地": 0.2,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.2,
+          "未来展望": 0.2,
+          "爱国民族": 0.2,
+          "其他": 0.0
+        },
+        "mean_intensity": 2.6,
+        "mixed_rate": 0.6,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 4,
+            "mean_score": -0.25
+          },
+          {
+            "bin": "2-6h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "6-12h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "12-24h",
+            "n": 1,
+            "mean_score": 0.0
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      },
+      "loss_20250208_singapore_liang": {
+        "event_id": "loss_20250208_singapore_liang",
+        "n": 6,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 3,
+          "negative": 0,
+          "neutral": 3
+        },
+        "polarity_pct": {
+          "positive": 50.0,
+          "negative": 0.0,
+          "neutral": 50.0
+        },
+        "mean_score": 0.3,
+        "engagement_weighted_score": 0.4154,
+        "emotion_dist": {
+          "支持鼓励": 1,
+          "自豪骄傲": 1,
+          "失望惋惜": 0,
+          "批评质疑": 0,
+          "愤怒不满": 0,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 1,
+          "中性陈述": 3
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 16.67,
+          "自豪骄傲": 16.67,
+          "失望惋惜": 0.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 16.67,
+          "中性陈述": 50.0
+        },
+        "dominant_emotion": "中性陈述",
+        "topic_counts": {
+          "赛果": 6,
+          "心理心态": 2,
+          "技战术": 1,
+          "对手": 1,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 0,
+          "伤病身体": 0,
+          "历史纪录": 1,
+          "未来展望": 1,
+          "爱国民族": 0,
+          "其他": 1
+        },
+        "topic_mention_rate": {
+          "赛果": 1.0,
+          "心理心态": 0.3333,
+          "技战术": 0.1667,
+          "对手": 0.1667,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.1667,
+          "未来展望": 0.1667,
+          "爱国民族": 0.0,
+          "其他": 0.1667
+        },
+        "mean_intensity": 2.0,
+        "mixed_rate": 0.1667,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 1,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "2-6h",
+            "n": 1,
+            "mean_score": 0.6
+          },
+          {
+            "bin": "6-12h",
+            "n": 2,
+            "mean_score": 0.3
+          },
+          {
+            "bin": "12-24h",
+            "n": 2,
+            "mean_score": 0.3
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      },
+      "loss_20250419_worldcup_calderano": {
+        "event_id": "loss_20250419_worldcup_calderano",
+        "n": 5,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 1,
+          "negative": 1,
+          "neutral": 3
+        },
+        "polarity_pct": {
+          "positive": 20.0,
+          "negative": 20.0,
+          "neutral": 60.0
+        },
+        "mean_score": 0.0,
+        "engagement_weighted_score": 0.3457,
+        "emotion_dist": {
+          "支持鼓励": 1,
+          "自豪骄傲": 0,
+          "失望惋惜": 1,
+          "批评质疑": 0,
+          "愤怒不满": 0,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 1,
+          "中性陈述": 2
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 20.0,
+          "自豪骄傲": 0.0,
+          "失望惋惜": 20.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 20.0,
+          "中性陈述": 40.0
+        },
+        "dominant_emotion": "中性陈述",
+        "topic_counts": {
+          "赛果": 5,
+          "心理心态": 2,
+          "技战术": 2,
+          "对手": 1,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 0,
+          "伤病身体": 0,
+          "历史纪录": 2,
+          "未来展望": 1,
+          "爱国民族": 0,
+          "其他": 0
+        },
+        "topic_mention_rate": {
+          "赛果": 1.0,
+          "心理心态": 0.4,
+          "技战术": 0.4,
+          "对手": 0.2,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.4,
+          "未来展望": 0.2,
+          "爱国民族": 0.0,
+          "其他": 0.0
+        },
+        "mean_intensity": 2.0,
+        "mixed_rate": 0.2,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 1,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "2-6h",
+            "n": 3,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "6-12h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "12-24h",
+            "n": 1,
+            "mean_score": 0.0
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      },
+      "loss_20250811_yokohama_harimoto": {
+        "event_id": "loss_20250811_yokohama_harimoto",
+        "n": 6,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 0,
+          "negative": 1,
+          "neutral": 5
+        },
+        "polarity_pct": {
+          "positive": 0.0,
+          "negative": 16.67,
+          "neutral": 83.33
+        },
+        "mean_score": -0.1333,
+        "engagement_weighted_score": -0.7121,
+        "emotion_dist": {
+          "支持鼓励": 0,
+          "自豪骄傲": 0,
+          "失望惋惜": 0,
+          "批评质疑": 0,
+          "愤怒不满": 1,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 1,
+          "中性陈述": 4
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 0.0,
+          "自豪骄傲": 0.0,
+          "失望惋惜": 0.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 16.67,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 16.67,
+          "中性陈述": 66.67
+        },
+        "dominant_emotion": "中性陈述",
+        "topic_counts": {
+          "赛果": 5,
+          "心理心态": 1,
+          "技战术": 1,
+          "对手": 4,
+          "器材场地": 0,
+          "裁判判罚": 1,
+          "舆论环境": 0,
+          "伤病身体": 1,
+          "历史纪录": 0,
+          "未来展望": 0,
+          "爱国民族": 0,
+          "其他": 0
+        },
+        "topic_mention_rate": {
+          "赛果": 0.8333,
+          "心理心态": 0.1667,
+          "技战术": 0.1667,
+          "对手": 0.6667,
+          "器材场地": 0.0,
+          "裁判判罚": 0.1667,
+          "舆论环境": 0.0,
+          "伤病身体": 0.1667,
+          "历史纪录": 0.0,
+          "未来展望": 0.0,
+          "爱国民族": 0.0,
+          "其他": 0.0
+        },
+        "mean_intensity": 1.6667,
+        "mixed_rate": 0.3333,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 6,
+            "mean_score": -0.1333
+          },
+          {
+            "bin": "2-6h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "6-12h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "12-24h",
+            "n": 0,
+            "mean_score": 0.0
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      },
+      "win_20250316_chongqing_lin": {
+        "event_id": "win_20250316_chongqing_lin",
+        "n": 6,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 5,
+          "negative": 0,
+          "neutral": 1
+        },
+        "polarity_pct": {
+          "positive": 83.33,
+          "negative": 0.0,
+          "neutral": 16.67
+        },
+        "mean_score": 0.5667,
+        "engagement_weighted_score": 0.3632,
+        "emotion_dist": {
+          "支持鼓励": 0,
+          "自豪骄傲": 5,
+          "失望惋惜": 0,
+          "批评质疑": 0,
+          "愤怒不满": 0,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 0,
+          "中性陈述": 1
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 0.0,
+          "自豪骄傲": 83.33,
+          "失望惋惜": 0.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 0.0,
+          "中性陈述": 16.67
+        },
+        "dominant_emotion": "自豪骄傲",
+        "topic_counts": {
+          "赛果": 6,
+          "心理心态": 2,
+          "技战术": 0,
+          "对手": 0,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 0,
+          "伤病身体": 0,
+          "历史纪录": 2,
+          "未来展望": 2,
+          "爱国民族": 1,
+          "其他": 0
+        },
+        "topic_mention_rate": {
+          "赛果": 1.0,
+          "心理心态": 0.3333,
+          "技战术": 0.0,
+          "对手": 0.0,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.3333,
+          "未来展望": 0.3333,
+          "爱国民族": 0.1667,
+          "其他": 0.0
+        },
+        "mean_intensity": 3.0,
+        "mixed_rate": 0.1667,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 3,
+            "mean_score": 0.4667
+          },
+          {
+            "bin": "2-6h",
+            "n": 3,
+            "mean_score": 0.6667
+          },
+          {
+            "bin": "6-12h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "12-24h",
+            "n": 0,
+            "mean_score": 0.0
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      },
+      "win_20250525_doha_calderano": {
+        "event_id": "win_20250525_doha_calderano",
+        "n": 5,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 5,
+          "negative": 0,
+          "neutral": 0
+        },
+        "polarity_pct": {
+          "positive": 100.0,
+          "negative": 0.0,
+          "neutral": 0.0
+        },
+        "mean_score": 0.72,
+        "engagement_weighted_score": 0.7832,
+        "emotion_dist": {
+          "支持鼓励": 0,
+          "自豪骄傲": 5,
+          "失望惋惜": 0,
+          "批评质疑": 0,
+          "愤怒不满": 0,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 0,
+          "中性陈述": 0
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 0.0,
+          "自豪骄傲": 100.0,
+          "失望惋惜": 0.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 0.0,
+          "中性陈述": 0.0
+        },
+        "dominant_emotion": "自豪骄傲",
+        "topic_counts": {
+          "赛果": 5,
+          "心理心态": 2,
+          "技战术": 0,
+          "对手": 0,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 0,
+          "伤病身体": 0,
+          "历史纪录": 4,
+          "未来展望": 2,
+          "爱国民族": 0,
+          "其他": 0
+        },
+        "topic_mention_rate": {
+          "赛果": 1.0,
+          "心理心态": 0.4,
+          "技战术": 0.0,
+          "对手": 0.0,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.8,
+          "未来展望": 0.4,
+          "爱国民族": 0.0,
+          "其他": 0.0
+        },
+        "mean_intensity": 3.6,
+        "mixed_rate": 0.0,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 2,
+            "mean_score": 0.7
+          },
+          {
+            "bin": "2-6h",
+            "n": 1,
+            "mean_score": 0.8
+          },
+          {
+            "bin": "6-12h",
+            "n": 1,
+            "mean_score": 0.8
+          },
+          {
+            "bin": "12-24h",
+            "n": 1,
+            "mean_score": 0.6
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      },
+      "win_20250714_us_smash_harimoto": {
+        "event_id": "win_20250714_us_smash_harimoto",
+        "n": 6,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 4,
+          "negative": 0,
+          "neutral": 2
+        },
+        "polarity_pct": {
+          "positive": 66.67,
+          "negative": 0.0,
+          "neutral": 33.33
+        },
+        "mean_score": 0.4667,
+        "engagement_weighted_score": 0.181,
+        "emotion_dist": {
+          "支持鼓励": 0,
+          "自豪骄傲": 4,
+          "失望惋惜": 0,
+          "批评质疑": 0,
+          "愤怒不满": 0,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 0,
+          "中性陈述": 2
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 0.0,
+          "自豪骄傲": 66.67,
+          "失望惋惜": 0.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 0.0,
+          "中性陈述": 33.33
+        },
+        "dominant_emotion": "自豪骄傲",
+        "topic_counts": {
+          "赛果": 6,
+          "心理心态": 2,
+          "技战术": 2,
+          "对手": 1,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 0,
+          "伤病身体": 0,
+          "历史纪录": 2,
+          "未来展望": 0,
+          "爱国民族": 1,
+          "其他": 0
+        },
+        "topic_mention_rate": {
+          "赛果": 1.0,
+          "心理心态": 0.3333,
+          "技战术": 0.3333,
+          "对手": 0.1667,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.3333,
+          "未来展望": 0.0,
+          "爱国民族": 0.1667,
+          "其他": 0.0
+        },
+        "mean_intensity": 2.6667,
+        "mixed_rate": 0.0,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 6,
+            "mean_score": 0.4667
+          },
+          {
+            "bin": "2-6h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "6-12h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "12-24h",
+            "n": 0,
+            "mean_score": 0.0
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      },
+      "win_20251005_china_smash_lebrun": {
+        "event_id": "win_20251005_china_smash_lebrun",
+        "n": 6,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 5,
+          "negative": 0,
+          "neutral": 1
+        },
+        "polarity_pct": {
+          "positive": 83.33,
+          "negative": 0.0,
+          "neutral": 16.67
+        },
+        "mean_score": 0.6667,
+        "engagement_weighted_score": 0.575,
+        "emotion_dist": {
+          "支持鼓励": 0,
+          "自豪骄傲": 5,
+          "失望惋惜": 0,
+          "批评质疑": 0,
+          "愤怒不满": 0,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 0,
+          "中性陈述": 1
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 0.0,
+          "自豪骄傲": 83.33,
+          "失望惋惜": 0.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 0.0,
+          "中性陈述": 16.67
+        },
+        "dominant_emotion": "自豪骄傲",
+        "topic_counts": {
+          "赛果": 6,
+          "心理心态": 1,
+          "技战术": 1,
+          "对手": 0,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 0,
+          "伤病身体": 0,
+          "历史纪录": 3,
+          "未来展望": 0,
+          "爱国民族": 2,
+          "其他": 0
+        },
+        "topic_mention_rate": {
+          "赛果": 1.0,
+          "心理心态": 0.1667,
+          "技战术": 0.1667,
+          "对手": 0.0,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.5,
+          "未来展望": 0.0,
+          "爱国民族": 0.3333,
+          "其他": 0.0
+        },
+        "mean_intensity": 3.5,
+        "mixed_rate": 0.0,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 1,
+            "mean_score": 0.8
+          },
+          {
+            "bin": "2-6h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "6-12h",
+            "n": 2,
+            "mean_score": 0.8
+          },
+          {
+            "bin": "12-24h",
+            "n": 3,
+            "mean_score": 0.5333
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      }
+    },
+    "by_result_rollup": {
+      "loss": {
+        "n_total": 22,
+        "n_events_valid": 4,
+        "excluded_from_rollup": [],
+        "positive_pct": 22.5,
+        "negative_pct": 19.1675,
+        "neutral_pct": 58.3325,
+        "mean_score": -0.0083,
+        "engagement_weighted_score": 0.0123,
+        "mean_intensity": 2.0667,
+        "mixed_rate": 0.325,
+        "emotion_dist_pct": {
+          "支持鼓励": 14.1675,
+          "自豪骄傲": 9.1675,
+          "失望惋惜": 10.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 4.1675,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 18.335,
+          "中性陈述": 44.1675
+        },
+        "topic_mention_rate": {
+          "赛果": 0.9583,
+          "心理心态": 0.375,
+          "技战术": 0.2334,
+          "对手": 0.2583,
+          "器材场地": 0.05,
+          "裁判判罚": 0.0417,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0417,
+          "历史纪录": 0.1917,
+          "未来展望": 0.1417,
+          "爱国民族": 0.05,
+          "其他": 0.0417
+        },
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 12,
+            "mean_score": -0.15
+          },
+          {
+            "bin": "2-6h",
+            "n": 4,
+            "mean_score": 0.15
+          },
+          {
+            "bin": "6-12h",
+            "n": 2,
+            "mean_score": 0.3
+          },
+          {
+            "bin": "12-24h",
+            "n": 4,
+            "mean_score": 0.15
+          }
+        ]
+      },
+      "win": {
+        "n_total": 23,
+        "n_events_valid": 4,
+        "excluded_from_rollup": [],
+        "positive_pct": 83.3325,
+        "negative_pct": 0.0,
+        "neutral_pct": 16.6675,
+        "mean_score": 0.605,
+        "engagement_weighted_score": 0.4756,
+        "mean_intensity": 3.1917,
+        "mixed_rate": 0.0417,
+        "emotion_dist_pct": {
+          "支持鼓励": 0.0,
+          "自豪骄傲": 83.3325,
+          "失望惋惜": 0.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 0.0,
+          "中性陈述": 16.6675
+        },
+        "topic_mention_rate": {
+          "赛果": 1.0,
+          "心理心态": 0.3083,
+          "技战术": 0.125,
+          "对手": 0.0417,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.4916,
+          "未来展望": 0.1833,
+          "爱国民族": 0.1667,
+          "其他": 0.0
+        },
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 12,
+            "mean_score": 0.5333
+          },
+          {
+            "bin": "2-6h",
+            "n": 4,
+            "mean_score": 0.7
+          },
+          {
+            "bin": "6-12h",
+            "n": 3,
+            "mean_score": 0.8
+          },
+          {
+            "bin": "12-24h",
+            "n": 4,
+            "mean_score": 0.55
+          }
+        ]
+      }
+    },
+    "top_topics": [
+      "赛果",
+      "历史纪录",
+      "心理心态"
+    ],
+    "representative_viewpoints": {
+      "headline": {
+        "record_id": "5170301736060435",
+        "text_clean": "王楚钦4比1雨果·卡尔德拉诺夺得2025多哈世乒赛男单冠军达成世乒赛金满贯🏆#2025多哈世乒赛#",
+        "viewpoint": "祝贺王楚钦夺冠并达成金满贯，感到骄傲与振奋。",
+        "sentiment_category": "自豪骄傲",
+        "sentiment_polarity": "positive",
+        "likes": 871,
+        "event_id": "win_20250525_doha_calderano"
+      },
+      "positive_voice": {
+        "record_id": "5170301736060435",
+        "text_clean": "王楚钦4比1雨果·卡尔德拉诺夺得2025多哈世乒赛男单冠军达成世乒赛金满贯🏆#2025多哈世乒赛#",
+        "viewpoint": "祝贺王楚钦夺冠并达成金满贯，感到骄傲与振奋。",
+        "sentiment_category": "自豪骄傲",
+        "sentiment_polarity": "positive",
+        "likes": 871,
+        "event_id": "win_20250525_doha_calderano"
+      },
+      "negative_voice": {
+        "record_id": "5198540007544707",
+        "text_clean": "今晚的男单冠军属于主场作战的张本智和，他这次打疯了状态确实很好，但是第三个赛点局的医疗暂停我是真不服。前天早田和张本智和妹妹比赛的时候，早田叫了医疗暂停，最终赢",
+        "viewpoint": "质疑张本智和医疗暂停，为王楚钦追分中断感到不公，但仍鼓励继续加油。",
+        "sentiment_category": "愤怒不满",
+        "sentiment_polarity": "negative",
+        "likes": 535,
+        "event_id": "loss_20250811_yokohama_harimoto"
+      },
+      "by_topic": {
+        "赛果": {
+          "record_id": "5170301736060435",
+          "text_clean": "王楚钦4比1雨果·卡尔德拉诺夺得2025多哈世乒赛男单冠军达成世乒赛金满贯🏆#2025多哈世乒赛#",
+          "viewpoint": "祝贺王楚钦夺冠并达成金满贯，感到骄傲与振奋。",
+          "sentiment_category": "自豪骄傲",
+          "sentiment_polarity": "positive",
+          "likes": 871,
+          "event_id": "win_20250525_doha_calderano"
+        },
+        "历史纪录": {
+          "record_id": "5170301736060435",
+          "text_clean": "王楚钦4比1雨果·卡尔德拉诺夺得2025多哈世乒赛男单冠军达成世乒赛金满贯🏆#2025多哈世乒赛#",
+          "viewpoint": "祝贺王楚钦夺冠并达成金满贯，感到骄傲与振奋。",
+          "sentiment_category": "自豪骄傲",
+          "sentiment_polarity": "positive",
+          "likes": 871,
+          "event_id": "win_20250525_doha_calderano"
+        },
+        "心理心态": {
+          "record_id": "5170309789653987",
+          "text_clean": "#2025多哈世乒赛# 男单决赛，王楚钦4-1雨果-卡尔德拉诺，赢得多哈世乒赛这个项目冠军。赛后接受采访，王楚钦表示：其实对于我来说，就很不可思议，虽然说自己在",
+          "viewpoint": "王楚钦夺冠后感慨成长与不易，为结果开心。",
+          "sentiment_category": "自豪骄傲",
+          "sentiment_polarity": "positive",
+          "likes": 108,
+          "event_id": "win_20250525_doha_calderano"
+        }
+      }
+    },
+    "top_topics_by_result": {
+      "loss": [
+        "赛果",
+        "心理心态",
+        "对手"
+      ],
+      "win": [
+        "赛果",
+        "历史纪录",
+        "心理心态"
+      ]
+    },
+    "representative_viewpoints_by_result": {
+      "loss": {
+        "headline": {
+          "record_id": "5198540007544707",
+          "text_clean": "今晚的男单冠军属于主场作战的张本智和，他这次打疯了状态确实很好，但是第三个赛点局的医疗暂停我是真不服。前天早田和张本智和妹妹比赛的时候，早田叫了医疗暂停，最终赢",
+          "viewpoint": "质疑张本智和医疗暂停，为王楚钦追分中断感到不公，但仍鼓励继续加油。",
+          "sentiment_category": "愤怒不满",
+          "sentiment_polarity": "negative",
+          "likes": 535,
+          "event_id": "loss_20250811_yokohama_harimoto"
+        },
+        "positive_voice": {
+          "record_id": "5157294321434628",
+          "text_clean": "2025澳门世界杯｜4月19日【男单半决赛】#王楚钦# 合集📥▫️赛前热身记录 双刀流 😏 哎呀呀 ｜图片/动图踢球 🏓男单半决赛（3:4雨果·卡尔德拉诺🇧🇷",
+          "viewpoint": "记录比赛细节并表达对王楚钦的心疼与支持，鼓励继续加油。",
+          "sentiment_category": "支持鼓励",
+          "sentiment_polarity": "positive",
+          "likes": 140,
+          "event_id": "loss_20250419_worldcup_calderano"
+        },
+        "negative_voice": {
+          "record_id": "5198540007544707",
+          "text_clean": "今晚的男单冠军属于主场作战的张本智和，他这次打疯了状态确实很好，但是第三个赛点局的医疗暂停我是真不服。前天早田和张本智和妹妹比赛的时候，早田叫了医疗暂停，最终赢",
+          "viewpoint": "质疑张本智和医疗暂停，为王楚钦追分中断感到不公，但仍鼓励继续加油。",
+          "sentiment_category": "愤怒不满",
+          "sentiment_polarity": "negative",
+          "likes": 535,
+          "event_id": "loss_20250811_yokohama_harimoto"
+        },
+        "by_topic": {
+          "赛果": {
+            "record_id": "5198540007544707",
+            "text_clean": "今晚的男单冠军属于主场作战的张本智和，他这次打疯了状态确实很好，但是第三个赛点局的医疗暂停我是真不服。前天早田和张本智和妹妹比赛的时候，早田叫了医疗暂停，最终赢",
+            "viewpoint": "质疑张本智和医疗暂停，为王楚钦追分中断感到不公，但仍鼓励继续加油。",
+            "sentiment_category": "愤怒不满",
+            "sentiment_polarity": "negative",
+            "likes": 535,
+            "event_id": "loss_20250811_yokohama_harimoto"
+          },
+          "心理心态": {
+            "record_id": "5157315170797112",
+            "text_clean": "#王楚钦说为什么全是擦网#在2025年4月19日#乒乓球澳门世界杯#门乒乓球世界杯男单半决赛里，王楚钦与雨果·卡尔德拉诺激战七局，最终3-4惜败，无缘决赛。比赛",
+            "viewpoint": "擦网球是比赛正常现象，输球不掩实力，应总结经验向前看。",
+            "sentiment_category": "理性分析",
+            "sentiment_polarity": "neutral",
+            "likes": 50,
+            "event_id": "loss_20250419_worldcup_calderano"
+          },
+          "对手": {
+            "record_id": "5198540007544707",
+            "text_clean": "今晚的男单冠军属于主场作战的张本智和，他这次打疯了状态确实很好，但是第三个赛点局的医疗暂停我是真不服。前天早田和张本智和妹妹比赛的时候，早田叫了医疗暂停，最终赢",
+            "viewpoint": "质疑张本智和医疗暂停，为王楚钦追分中断感到不公，但仍鼓励继续加油。",
+            "sentiment_category": "愤怒不满",
+            "sentiment_polarity": "negative",
+            "likes": 535,
+            "event_id": "loss_20250811_yokohama_harimoto"
+          }
+        }
+      },
+      "win": {
+        "headline": {
+          "record_id": "5170301736060435",
+          "text_clean": "王楚钦4比1雨果·卡尔德拉诺夺得2025多哈世乒赛男单冠军达成世乒赛金满贯🏆#2025多哈世乒赛#",
+          "viewpoint": "祝贺王楚钦夺冠并达成金满贯，感到骄傲与振奋。",
+          "sentiment_category": "自豪骄傲",
+          "sentiment_polarity": "positive",
+          "likes": 871,
+          "event_id": "win_20250525_doha_calderano"
+        },
+        "positive_voice": {
+          "record_id": "5170301736060435",
+          "text_clean": "王楚钦4比1雨果·卡尔德拉诺夺得2025多哈世乒赛男单冠军达成世乒赛金满贯🏆#2025多哈世乒赛#",
+          "viewpoint": "祝贺王楚钦夺冠并达成金满贯，感到骄傲与振奋。",
+          "sentiment_category": "自豪骄傲",
+          "sentiment_polarity": "positive",
+          "likes": 871,
+          "event_id": "win_20250525_doha_calderano"
+        },
+        "negative_voice": null,
+        "by_topic": {
+          "赛果": {
+            "record_id": "5170301736060435",
+            "text_clean": "王楚钦4比1雨果·卡尔德拉诺夺得2025多哈世乒赛男单冠军达成世乒赛金满贯🏆#2025多哈世乒赛#",
+            "viewpoint": "祝贺王楚钦夺冠并达成金满贯，感到骄傲与振奋。",
+            "sentiment_category": "自豪骄傲",
+            "sentiment_polarity": "positive",
+            "likes": 871,
+            "event_id": "win_20250525_doha_calderano"
+          },
+          "历史纪录": {
+            "record_id": "5170301736060435",
+            "text_clean": "王楚钦4比1雨果·卡尔德拉诺夺得2025多哈世乒赛男单冠军达成世乒赛金满贯🏆#2025多哈世乒赛#",
+            "viewpoint": "祝贺王楚钦夺冠并达成金满贯，感到骄傲与振奋。",
+            "sentiment_category": "自豪骄傲",
+            "sentiment_polarity": "positive",
+            "likes": 871,
+            "event_id": "win_20250525_doha_calderano"
+          },
+          "心理心态": {
+            "record_id": "5170309789653987",
+            "text_clean": "#2025多哈世乒赛# 男单决赛，王楚钦4-1雨果-卡尔德拉诺，赢得多哈世乒赛这个项目冠军。赛后接受采访，王楚钦表示：其实对于我来说，就很不可思议，虽然说自己在",
+            "viewpoint": "王楚钦夺冠后感慨成长与不易，为结果开心。",
+            "sentiment_category": "自豪骄傲",
+            "sentiment_polarity": "positive",
+            "likes": 108,
+            "event_id": "win_20250525_doha_calderano"
+          }
+        }
+      }
+    }
+  },
+  "comments": {
+    "n_total": 61,
+    "by_event": {
+      "loss_20240731_paris_moregard": {
+        "event_id": "loss_20240731_paris_moregard",
+        "n": 10,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 0,
+          "negative": 7,
+          "neutral": 3
+        },
+        "polarity_pct": {
+          "positive": 0.0,
+          "negative": 70.0,
+          "neutral": 30.0
+        },
+        "mean_score": -0.42,
+        "engagement_weighted_score": -0.3034,
+        "emotion_dist": {
+          "支持鼓励": 0,
+          "自豪骄傲": 0,
+          "失望惋惜": 2,
+          "批评质疑": 4,
+          "愤怒不满": 1,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 3,
+          "中性陈述": 0
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 0.0,
+          "自豪骄傲": 0.0,
+          "失望惋惜": 20.0,
+          "批评质疑": 40.0,
+          "愤怒不满": 10.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 30.0,
+          "中性陈述": 0.0
+        },
+        "dominant_emotion": "批评质疑",
+        "topic_counts": {
+          "赛果": 3,
+          "心理心态": 8,
+          "技战术": 2,
+          "对手": 0,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 1,
+          "伤病身体": 0,
+          "历史纪录": 1,
+          "未来展望": 2,
+          "爱国民族": 0,
+          "其他": 0
+        },
+        "topic_mention_rate": {
+          "赛果": 0.3,
+          "心理心态": 0.8,
+          "技战术": 0.2,
+          "对手": 0.0,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.1,
+          "伤病身体": 0.0,
+          "历史纪录": 0.1,
+          "未来展望": 0.2,
+          "爱国民族": 0.0,
+          "其他": 0.0
+        },
+        "mean_intensity": 2.7,
+        "mixed_rate": 0.1,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 7,
+            "mean_score": -0.4286
+          },
+          {
+            "bin": "2-6h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "6-12h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "12-24h",
+            "n": 3,
+            "mean_score": -0.4
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      },
+      "loss_20250208_singapore_liang": {
+        "event_id": "loss_20250208_singapore_liang",
+        "n": 1,
+        "coverage_flag": "thin",
+        "polarity": {
+          "positive": 1,
+          "negative": 0,
+          "neutral": 0
+        },
+        "polarity_pct": {
+          "positive": 100.0,
+          "negative": 0.0,
+          "neutral": 0.0
+        },
+        "mean_score": 0.6,
+        "engagement_weighted_score": 0.6,
+        "emotion_dist": {
+          "支持鼓励": 1,
+          "自豪骄傲": 0,
+          "失望惋惜": 0,
+          "批评质疑": 0,
+          "愤怒不满": 0,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 0,
+          "中性陈述": 0
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 100.0,
+          "自豪骄傲": 0.0,
+          "失望惋惜": 0.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 0.0,
+          "中性陈述": 0.0
+        },
+        "dominant_emotion": "支持鼓励",
+        "topic_counts": {
+          "赛果": 0,
+          "心理心态": 1,
+          "技战术": 0,
+          "对手": 0,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 0,
+          "伤病身体": 0,
+          "历史纪录": 0,
+          "未来展望": 0,
+          "爱国民族": 0,
+          "其他": 0
+        },
+        "topic_mention_rate": {
+          "赛果": 0.0,
+          "心理心态": 1.0,
+          "技战术": 0.0,
+          "对手": 0.0,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.0,
+          "未来展望": 0.0,
+          "爱国民族": 0.0,
+          "其他": 0.0
+        },
+        "mean_intensity": 3.0,
+        "mixed_rate": 0.0,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "2-6h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "6-12h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "12-24h",
+            "n": 1,
+            "mean_score": 0.6
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      },
+      "loss_20250419_worldcup_calderano": {
+        "event_id": "loss_20250419_worldcup_calderano",
+        "n": 10,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 4,
+          "negative": 2,
+          "neutral": 4
+        },
+        "polarity_pct": {
+          "positive": 40.0,
+          "negative": 20.0,
+          "neutral": 40.0
+        },
+        "mean_score": 0.08,
+        "engagement_weighted_score": -0.0533,
+        "emotion_dist": {
+          "支持鼓励": 3,
+          "自豪骄傲": 1,
+          "失望惋惜": 2,
+          "批评质疑": 0,
+          "愤怒不满": 0,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 0,
+          "中性陈述": 4
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 30.0,
+          "自豪骄傲": 10.0,
+          "失望惋惜": 20.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 0.0,
+          "中性陈述": 40.0
+        },
+        "dominant_emotion": "中性陈述",
+        "topic_counts": {
+          "赛果": 8,
+          "心理心态": 2,
+          "技战术": 0,
+          "对手": 0,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 0,
+          "伤病身体": 0,
+          "历史纪录": 0,
+          "未来展望": 1,
+          "爱国民族": 0,
+          "其他": 1
+        },
+        "topic_mention_rate": {
+          "赛果": 0.8,
+          "心理心态": 0.2,
+          "技战术": 0.0,
+          "对手": 0.0,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.0,
+          "未来展望": 0.1,
+          "爱国民族": 0.0,
+          "其他": 0.1
+        },
+        "mean_intensity": 1.8,
+        "mixed_rate": 0.0,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "2-6h",
+            "n": 3,
+            "mean_score": 0.1333
+          },
+          {
+            "bin": "6-12h",
+            "n": 1,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "12-24h",
+            "n": 6,
+            "mean_score": 0.0667
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 1
+      },
+      "loss_20250811_yokohama_harimoto": {
+        "event_id": "loss_20250811_yokohama_harimoto",
+        "n": 10,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 2,
+          "negative": 3,
+          "neutral": 5
+        },
+        "polarity_pct": {
+          "positive": 20.0,
+          "negative": 30.0,
+          "neutral": 50.0
+        },
+        "mean_score": -0.14,
+        "engagement_weighted_score": 0.0682,
+        "emotion_dist": {
+          "支持鼓励": 2,
+          "自豪骄傲": 0,
+          "失望惋惜": 0,
+          "批评质疑": 1,
+          "愤怒不满": 1,
+          "焦虑担忧": 0,
+          "调侃戏谑": 1,
+          "理性分析": 1,
+          "中性陈述": 4
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 20.0,
+          "自豪骄傲": 0.0,
+          "失望惋惜": 0.0,
+          "批评质疑": 10.0,
+          "愤怒不满": 10.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 10.0,
+          "理性分析": 10.0,
+          "中性陈述": 40.0
+        },
+        "dominant_emotion": "中性陈述",
+        "topic_counts": {
+          "赛果": 4,
+          "心理心态": 1,
+          "技战术": 1,
+          "对手": 4,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 2,
+          "伤病身体": 0,
+          "历史纪录": 0,
+          "未来展望": 0,
+          "爱国民族": 0,
+          "其他": 4
+        },
+        "topic_mention_rate": {
+          "赛果": 0.4,
+          "心理心态": 0.1,
+          "技战术": 0.1,
+          "对手": 0.4,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.2,
+          "伤病身体": 0.0,
+          "历史纪录": 0.0,
+          "未来展望": 0.0,
+          "爱国民族": 0.0,
+          "其他": 0.4
+        },
+        "mean_intensity": 2.3,
+        "mixed_rate": 0.1,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 9,
+            "mean_score": -0.0667
+          },
+          {
+            "bin": "2-6h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "6-12h",
+            "n": 1,
+            "mean_score": -0.8
+          },
+          {
+            "bin": "12-24h",
+            "n": 0,
+            "mean_score": 0.0
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 3
+      },
+      "win_20250316_chongqing_lin": {
+        "event_id": "win_20250316_chongqing_lin",
+        "n": 10,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 7,
+          "negative": 0,
+          "neutral": 3
+        },
+        "polarity_pct": {
+          "positive": 70.0,
+          "negative": 0.0,
+          "neutral": 30.0
+        },
+        "mean_score": 0.3,
+        "engagement_weighted_score": 0.3,
+        "emotion_dist": {
+          "支持鼓励": 0,
+          "自豪骄傲": 6,
+          "失望惋惜": 0,
+          "批评质疑": 0,
+          "愤怒不满": 0,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 0,
+          "中性陈述": 4
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 0.0,
+          "自豪骄傲": 60.0,
+          "失望惋惜": 0.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 0.0,
+          "中性陈述": 40.0
+        },
+        "dominant_emotion": "自豪骄傲",
+        "topic_counts": {
+          "赛果": 8,
+          "心理心态": 0,
+          "技战术": 0,
+          "对手": 0,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 0,
+          "伤病身体": 0,
+          "历史纪录": 0,
+          "未来展望": 1,
+          "爱国民族": 0,
+          "其他": 2
+        },
+        "topic_mention_rate": {
+          "赛果": 0.8,
+          "心理心态": 0.0,
+          "技战术": 0.0,
+          "对手": 0.0,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.0,
+          "未来展望": 0.1,
+          "爱国民族": 0.0,
+          "其他": 0.2
+        },
+        "mean_intensity": 1.8,
+        "mixed_rate": 0.0,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 3,
+            "mean_score": 0.5333
+          },
+          {
+            "bin": "2-6h",
+            "n": 7,
+            "mean_score": 0.2
+          },
+          {
+            "bin": "6-12h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "12-24h",
+            "n": 0,
+            "mean_score": 0.0
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      },
+      "win_20250525_doha_calderano": {
+        "event_id": "win_20250525_doha_calderano",
+        "n": 10,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 10,
+          "negative": 0,
+          "neutral": 0
+        },
+        "polarity_pct": {
+          "positive": 100.0,
+          "negative": 0.0,
+          "neutral": 0.0
+        },
+        "mean_score": 0.54,
+        "engagement_weighted_score": 0.6756,
+        "emotion_dist": {
+          "支持鼓励": 6,
+          "自豪骄傲": 4,
+          "失望惋惜": 0,
+          "批评质疑": 0,
+          "愤怒不满": 0,
+          "焦虑担忧": 0,
+          "调侃戏谑": 0,
+          "理性分析": 0,
+          "中性陈述": 0
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 60.0,
+          "自豪骄傲": 40.0,
+          "失望惋惜": 0.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 0.0,
+          "理性分析": 0.0,
+          "中性陈述": 0.0
+        },
+        "dominant_emotion": "支持鼓励",
+        "topic_counts": {
+          "赛果": 7,
+          "心理心态": 1,
+          "技战术": 0,
+          "对手": 0,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 0,
+          "伤病身体": 0,
+          "历史纪录": 0,
+          "未来展望": 2,
+          "爱国民族": 1,
+          "其他": 1
+        },
+        "topic_mention_rate": {
+          "赛果": 0.7,
+          "心理心态": 0.1,
+          "技战术": 0.0,
+          "对手": 0.0,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.0,
+          "未来展望": 0.2,
+          "爱国民族": 0.1,
+          "其他": 0.1
+        },
+        "mean_intensity": 2.7,
+        "mixed_rate": 0.0,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 7,
+            "mean_score": 0.6286
+          },
+          {
+            "bin": "2-6h",
+            "n": 3,
+            "mean_score": 0.3333
+          },
+          {
+            "bin": "6-12h",
+            "n": 0,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "12-24h",
+            "n": 0,
+            "mean_score": 0.0
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      },
+      "win_20250714_us_smash_harimoto": {
+        "event_id": "win_20250714_us_smash_harimoto",
+        "n": 10,
+        "coverage_flag": "ok",
+        "polarity": {
+          "positive": 8,
+          "negative": 0,
+          "neutral": 2
+        },
+        "polarity_pct": {
+          "positive": 80.0,
+          "negative": 0.0,
+          "neutral": 20.0
+        },
+        "mean_score": 0.44,
+        "engagement_weighted_score": 0.32,
+        "emotion_dist": {
+          "支持鼓励": 3,
+          "自豪骄傲": 5,
+          "失望惋惜": 0,
+          "批评质疑": 0,
+          "愤怒不满": 0,
+          "焦虑担忧": 0,
+          "调侃戏谑": 1,
+          "理性分析": 0,
+          "中性陈述": 1
+        },
+        "emotion_dist_pct": {
+          "支持鼓励": 30.0,
+          "自豪骄傲": 50.0,
+          "失望惋惜": 0.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 10.0,
+          "理性分析": 0.0,
+          "中性陈述": 10.0
+        },
+        "dominant_emotion": "自豪骄傲",
+        "topic_counts": {
+          "赛果": 7,
+          "心理心态": 1,
+          "技战术": 0,
+          "对手": 1,
+          "器材场地": 0,
+          "裁判判罚": 0,
+          "舆论环境": 0,
+          "伤病身体": 0,
+          "历史纪录": 0,
+          "未来展望": 2,
+          "爱国民族": 1,
+          "其他": 1
+        },
+        "topic_mention_rate": {
+          "赛果": 0.7,
+          "心理心态": 0.1,
+          "技战术": 0.0,
+          "对手": 0.1,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.0,
+          "未来展望": 0.2,
+          "爱国民族": 0.1,
+          "其他": 0.1
+        },
+        "mean_intensity": 2.4,
+        "mixed_rate": 0.0,
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 8,
+            "mean_score": 0.525
+          },
+          {
+            "bin": "2-6h",
+            "n": 1,
+            "mean_score": 0.0
+          },
+          {
+            "bin": "6-12h",
+            "n": 1,
+            "mean_score": 0.2
+          },
+          {
+            "bin": "12-24h",
+            "n": 0,
+            "mean_score": 0.0
+          }
+        ],
+        "n_failed": 0,
+        "n_low_confidence": 0
+      }
+    },
+    "by_result_rollup": {
+      "loss": {
+        "n_total": 31,
+        "n_events_valid": 3,
+        "excluded_from_rollup": [
+          {
+            "event_id": "loss_20250208_singapore_liang",
+            "n": 1,
+            "reason": "thin"
+          }
+        ],
+        "positive_pct": 20.0,
+        "negative_pct": 40.0,
+        "neutral_pct": 40.0,
+        "mean_score": -0.16,
+        "engagement_weighted_score": -0.0962,
+        "mean_intensity": 2.2667,
+        "mixed_rate": 0.0667,
+        "emotion_dist_pct": {
+          "支持鼓励": 16.6667,
+          "自豪骄傲": 3.3333,
+          "失望惋惜": 13.3333,
+          "批评质疑": 16.6667,
+          "愤怒不满": 6.6667,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 3.3333,
+          "理性分析": 13.3333,
+          "中性陈述": 26.6667
+        },
+        "topic_mention_rate": {
+          "赛果": 0.5,
+          "心理心态": 0.3667,
+          "技战术": 0.1,
+          "对手": 0.1333,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.1,
+          "伤病身体": 0.0,
+          "历史纪录": 0.0333,
+          "未来展望": 0.1,
+          "爱国民族": 0.0,
+          "其他": 0.1667
+        },
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 16,
+            "mean_score": -0.225
+          },
+          {
+            "bin": "2-6h",
+            "n": 3,
+            "mean_score": 0.1333
+          },
+          {
+            "bin": "6-12h",
+            "n": 2,
+            "mean_score": -0.4
+          },
+          {
+            "bin": "12-24h",
+            "n": 10,
+            "mean_score": -0.02
+          }
+        ]
+      },
+      "win": {
+        "n_total": 30,
+        "n_events_valid": 3,
+        "excluded_from_rollup": [],
+        "positive_pct": 83.3333,
+        "negative_pct": 0.0,
+        "neutral_pct": 16.6667,
+        "mean_score": 0.4267,
+        "engagement_weighted_score": 0.4319,
+        "mean_intensity": 2.3,
+        "mixed_rate": 0.0,
+        "emotion_dist_pct": {
+          "支持鼓励": 30.0,
+          "自豪骄傲": 50.0,
+          "失望惋惜": 0.0,
+          "批评质疑": 0.0,
+          "愤怒不满": 0.0,
+          "焦虑担忧": 0.0,
+          "调侃戏谑": 3.3333,
+          "理性分析": 0.0,
+          "中性陈述": 16.6667
+        },
+        "topic_mention_rate": {
+          "赛果": 0.7333,
+          "心理心态": 0.0667,
+          "技战术": 0.0,
+          "对手": 0.0333,
+          "器材场地": 0.0,
+          "裁判判罚": 0.0,
+          "舆论环境": 0.0,
+          "伤病身体": 0.0,
+          "历史纪录": 0.0,
+          "未来展望": 0.1667,
+          "爱国民族": 0.0667,
+          "其他": 0.1333
+        },
+        "timeline": [
+          {
+            "bin": "0-2h",
+            "n": 18,
+            "mean_score": 0.5667
+          },
+          {
+            "bin": "2-6h",
+            "n": 11,
+            "mean_score": 0.2182
+          },
+          {
+            "bin": "6-12h",
+            "n": 1,
+            "mean_score": 0.2
+          },
+          {
+            "bin": "12-24h",
+            "n": 0,
+            "mean_score": 0.0
+          }
+        ]
+      }
+    },
+    "top_topics": [
+      "赛果",
+      "心理心态",
+      "其他"
+    ],
+    "representative_viewpoints": {
+      "headline": {
+        "record_id": "5170301941847328",
+        "text_clean": "证明了自己",
+        "viewpoint": "王楚钦用胜利证明了自己的实力，令人骄傲。",
+        "sentiment_category": "自豪骄傲",
+        "sentiment_polarity": "positive",
+        "likes": 17,
+        "event_id": "win_20250525_doha_calderano"
+      },
+      "positive_voice": {
+        "record_id": "5170301941847328",
+        "text_clean": "证明了自己",
+        "viewpoint": "王楚钦用胜利证明了自己的实力，令人骄傲。",
+        "sentiment_category": "自豪骄傲",
+        "sentiment_polarity": "positive",
+        "likes": 17,
+        "event_id": "win_20250525_doha_calderano"
+      },
+      "negative_voice": {
+        "record_id": "5198540999494928",
+        "text_clean": "恭喜张本终于战胜骰子",
+        "viewpoint": "用贬称“骰子”恭喜张本智和战胜王楚钦，暗含嘲讽。",
+        "sentiment_category": "调侃戏谑",
+        "sentiment_polarity": "negative",
+        "likes": 5,
+        "event_id": "loss_20250811_yokohama_harimoto"
+      },
+      "by_topic": {
+        "赛果": {
+          "record_id": "5170301941847328",
+          "text_clean": "证明了自己",
+          "viewpoint": "王楚钦用胜利证明了自己的实力，令人骄傲。",
+          "sentiment_category": "自豪骄傲",
+          "sentiment_polarity": "positive",
+          "likes": 17,
+          "event_id": "win_20250525_doha_calderano"
+        },
+        "心理心态": {
+          "record_id": "5170301941847328",
+          "text_clean": "证明了自己",
+          "viewpoint": "王楚钦用胜利证明了自己的实力，令人骄傲。",
+          "sentiment_category": "自豪骄傲",
+          "sentiment_polarity": "positive",
+          "likes": 17,
+          "event_id": "win_20250525_doha_calderano"
+        },
+        "其他": {
+          "record_id": "5198540999493268",
+          "text_clean": "王楚钦辛苦了，好好休息",
+          "viewpoint": "王楚钦辛苦了，应好好休息。",
+          "sentiment_category": "支持鼓励",
+          "sentiment_polarity": "positive",
+          "likes": 6,
+          "event_id": "loss_20250811_yokohama_harimoto"
+        }
+      }
+    },
+    "top_topics_by_result": {
+      "loss": [
+        "赛果",
+        "心理心态",
+        "其他"
+      ],
+      "win": [
+        "赛果",
+        "未来展望",
+        "其他"
+      ]
+    },
+    "representative_viewpoints_by_result": {
+      "loss": {
+        "headline": {
+          "record_id": "5198540850597907",
+          "text_clean": "张本之前没赢过王 这次大比分赢下 👍👍",
+          "viewpoint": "肯定张本智和的突破，对王楚钦保持支持。",
+          "sentiment_category": "支持鼓励",
+          "sentiment_polarity": "positive",
+          "likes": 13,
+          "event_id": "loss_20250811_yokohama_harimoto"
+        },
+        "positive_voice": {
+          "record_id": "5198540850597907",
+          "text_clean": "张本之前没赢过王 这次大比分赢下 👍👍",
+          "viewpoint": "肯定张本智和的突破，对王楚钦保持支持。",
+          "sentiment_category": "支持鼓励",
+          "sentiment_polarity": "positive",
+          "likes": 13,
+          "event_id": "loss_20250811_yokohama_harimoto"
+        },
+        "negative_voice": {
+          "record_id": "5198540999494928",
+          "text_clean": "恭喜张本终于战胜骰子",
+          "viewpoint": "用贬称“骰子”恭喜张本智和战胜王楚钦，暗含嘲讽。",
+          "sentiment_category": "调侃戏谑",
+          "sentiment_polarity": "negative",
+          "likes": 5,
+          "event_id": "loss_20250811_yokohama_harimoto"
+        },
+        "by_topic": {
+          "赛果": {
+            "record_id": "5198540850597907",
+            "text_clean": "张本之前没赢过王 这次大比分赢下 👍👍",
+            "viewpoint": "肯定张本智和的突破，对王楚钦保持支持。",
+            "sentiment_category": "支持鼓励",
+            "sentiment_polarity": "positive",
+            "likes": 13,
+            "event_id": "loss_20250811_yokohama_harimoto"
+          },
+          "心理心态": {
+            "record_id": "5062245889608534",
+            "text_clean": "所以我每次看奥运会都想刘国梁对张继科说的话，先进入决赛再说。12年张继科第一次参加奥运会参加男单，就超级怕爆冷出局。",
+            "viewpoint": "引用刘国梁的话，指出大赛心态重要，提及张继科也曾怕爆冷。",
+            "sentiment_category": "理性分析",
+            "sentiment_polarity": "neutral",
+            "likes": 8,
+            "event_id": "loss_20240731_paris_moregard"
+          },
+          "其他": {
+            "record_id": "5198540999493268",
+            "text_clean": "王楚钦辛苦了，好好休息",
+            "viewpoint": "王楚钦辛苦了，应好好休息。",
+            "sentiment_category": "支持鼓励",
+            "sentiment_polarity": "positive",
+            "likes": 6,
+            "event_id": "loss_20250811_yokohama_harimoto"
+          }
+        }
+      },
+      "win": {
+        "headline": {
+          "record_id": "5170301941847328",
+          "text_clean": "证明了自己",
+          "viewpoint": "王楚钦用胜利证明了自己的实力，令人骄傲。",
+          "sentiment_category": "自豪骄傲",
+          "sentiment_polarity": "positive",
+          "likes": 17,
+          "event_id": "win_20250525_doha_calderano"
+        },
+        "positive_voice": {
+          "record_id": "5170301941847328",
+          "text_clean": "证明了自己",
+          "viewpoint": "王楚钦用胜利证明了自己的实力，令人骄傲。",
+          "sentiment_category": "自豪骄傲",
+          "sentiment_polarity": "positive",
+          "likes": 17,
+          "event_id": "win_20250525_doha_calderano"
+        },
+        "negative_voice": null,
+        "by_topic": {
+          "赛果": {
+            "record_id": "5170301941847328",
+            "text_clean": "证明了自己",
+            "viewpoint": "王楚钦用胜利证明了自己的实力，令人骄傲。",
+            "sentiment_category": "自豪骄傲",
+            "sentiment_polarity": "positive",
+            "likes": 17,
+            "event_id": "win_20250525_doha_calderano"
+          },
+          "未来展望": {
+            "record_id": "5170309563155703",
+            "text_clean": "国乒男队需要他抗大旗，有三大赛冠军即是证明了他自己。加油！",
+            "viewpoint": "他需要扛起大旗，已有冠军证明自己，希望他继续加油。",
+            "sentiment_category": "支持鼓励",
+            "sentiment_polarity": "positive",
+            "likes": 7,
+            "event_id": "win_20250525_doha_calderano"
+          },
+          "其他": {
+            "record_id": "5144965236131855",
+            "text_clean": "哈喽",
+            "viewpoint": "简单打个招呼，无实质内容",
+            "sentiment_category": "中性陈述",
+            "sentiment_polarity": "neutral",
+            "likes": 0,
+            "event_id": "win_20250316_chongqing_lin"
+          }
+        }
+      }
+    }
+  },
+  "domain_comparison": {
+    "comparison_table": [
+      {
+        "维度": "情感对象",
+        "商品评论（通用基线）": "产品/服务（物）",
+        "体育舆情（本领域）": "运动员本人（人，存在拟社会关系与身份投射）"
+      },
+      {
+        "维度": "正向核心",
+        "商品评论（通用基线）": "满意、好评、推荐、复购意愿",
+        "体育舆情（本领域）": "支持鼓励、自豪骄傲（指向人，非物）"
+      },
+      {
+        "维度": "负向核心",
+        "商品评论（通用基线）": "不满、差评、退货",
+        "体育舆情（本领域）": "失望惋惜、批评质疑（多针对心态/技战术，非退货）"
+      },
+      {
+        "维度": "领域特有类别",
+        "商品评论（通用基线）": "满意度、购买意愿",
+        "体育舆情（本领域）": "幸灾乐祸（调侃对手）、爱国民族情感、对运动员心态的评价、对未来展望的焦虑"
+      },
+      {
+        "维度": "通用特有（本领域无）",
+        "商品评论（通用基线）": "复购意愿、性价比、物流评价",
+        "体育舆情（本领域）": "—"
+      },
+      {
+        "维度": "评价维度",
+        "商品评论（通用基线）": "质量、价格、服务",
+        "体育舆情（本领域）": "技战术、心理心态、赛果、对手强弱、舆论环境"
+      },
+      {
+        "维度": "情绪强度来源",
+        "商品评论（通用基线）": "体验落差",
+        "体育舆情（本领域）": "身份认同（球迷/国人）+ 竞技悬念与不可预期性"
+      },
+      {
+        "维度": "中性占比",
+        "商品评论（通用基线）": "低（评论多为表态）",
+        "体育舆情（本领域）": "较高（新闻性正文与赛果转述）"
+      },
+      {
+        "维度": "混合情感",
+        "商品评论（通用基线）": "少见",
+        "体育舆情（本领域）": "常见（心疼+鼓励、赢球+挑剔、惜败+释然）"
+      }
+    ],
+    "data_observations": [
+      {
+        "finding": "评论侧输球仍含较高比例的支持鼓励，体现体育舆情'败亦支持'的特征",
+        "evidence": "评论侧输球组中支持鼓励占 16.7%，而批评质疑 16.7%、失望惋惜 13.3%——对运动员本人的支持在输球后依然显著，这在商品差评（不满即差评/退货）中几乎不存在。"
+      },
+      {
+        "finding": "本模型采用 9 类领域情感 taxonomy 而非通用正/负/中三元分类",
+        "evidence": "幸灾乐祸（调侃对手）、爱国民族、对运动员心态的评价等类别在商品评论中没有对应；反之商品评论的'复购意愿/性价比'在本领域无意义。故保留极性字段以便与通用模型对比，同时用领域类别刻画更丰富的情绪。"
+      },
+      {
+        "finding": "正文侧中性占比较高，区别于商品评论以表态为主",
+        "evidence": "正文胜/负组中性占比分别约 16.7% / 58.3%，因正文多为赛果转述与新闻性陈述；商品评论中性占比通常很低。"
+      }
+    ]
+  }
+}

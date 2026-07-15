@@ -1,0 +1,35 @@
+{
+  "total_rows": 106,
+  "by_content_type": {
+    "post": {
+      "n": 45,
+      "polarity_neutral": 17,
+      "category_中性陈述": 14,
+      "low_confidence": 0,
+      "failed": 0,
+      "polarity_negative": 4,
+      "category_支持鼓励": 3,
+      "category_失望惋惜": 2,
+      "polarity_positive": 24,
+      "category_自豪骄傲": 21,
+      "category_理性分析": 4,
+      "category_愤怒不满": 1
+    },
+    "comment": {
+      "n": 61,
+      "polarity_neutral": 17,
+      "category_理性分析": 4,
+      "low_confidence": 4,
+      "failed": 0,
+      "polarity_negative": 12,
+      "category_失望惋惜": 4,
+      "category_愤怒不满": 2,
+      "category_批评质疑": 5,
+      "polarity_positive": 32,
+      "category_支持鼓励": 15,
+      "category_中性陈述": 13,
+      "category_自豪骄傲": 16,
+      "category_调侃戏谑": 2
+    }
+  }
+}
