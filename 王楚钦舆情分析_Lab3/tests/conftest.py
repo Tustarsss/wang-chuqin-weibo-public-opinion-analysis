@@ -20,3 +20,34 @@ def project_data(repo_root: Path):
     from lab3.data_loader import load_project_data
 
     return load_project_data(repo_root)
+
+
+@pytest.fixture()
+def loss_packet(project_data):
+    from lab3.evidence import build_evidence
+    from lab3.models import AnalysisScope
+
+    return build_evidence(
+        project_data,
+        AnalysisScope(
+            kind="loss_group",
+            source="both",
+            audience="球迷",
+        ),
+    )
+
+
+@pytest.fixture()
+def zero_comment_packet(project_data):
+    from lab3.evidence import build_evidence
+    from lab3.models import AnalysisScope
+
+    return build_evidence(
+        project_data,
+        AnalysisScope(
+            kind="single_event",
+            source="comment",
+            audience="媒体",
+            event_id="win_20251005_china_smash_lebrun",
+        ),
+    )
