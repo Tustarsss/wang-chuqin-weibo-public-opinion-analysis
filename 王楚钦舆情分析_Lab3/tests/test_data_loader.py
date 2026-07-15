@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib
 import json
 import shutil
+from collections.abc import Mapping
 from dataclasses import FrozenInstanceError
 from pathlib import Path
 from typing import Any, Callable
@@ -83,21 +84,23 @@ def test_artifact_paths_are_fixed(repo_root: Path) -> None:
 
 def test_project_data_defensively_freezes_nested_inputs() -> None:
     module = importlib.import_module("lab3.data_loader")
-    events = [{"event_id": "event-1", "keywords": ["原关键词"]}]
+    events = {
+        "event-1": {"event_id": "event-1", "keywords": ["原关键词"]}
+    }
     report = {"meta": {"n_posts": 1}}
     posts = [{"post_id": "post-1", "topic_tags": ["赛果"]}]
     comments = [{"comment_id": "comment-1"}]
     ingestion = {"lab3_ready": True, "errors": []}
 
     data = module.ProjectData(events, report, posts, comments, ingestion)
-    events[0]["keywords"].append("污染")
-    events.append({"event_id": "event-2"})
+    events["event-1"]["keywords"].append("污染")
+    events["event-2"] = {"event_id": "event-2"}
     report["meta"]["n_posts"] = 99
     posts[0]["topic_tags"][0] = "污染"
     comments.clear()
     ingestion["errors"].append("污染")
 
-    assert data.events[0]["keywords"] == ("原关键词",)
+    assert data.events["event-1"]["keywords"] == ("原关键词",)
     assert len(data.events) == 1
     assert data.report["meta"]["n_posts"] == 1
     assert data.posts[0]["topic_tags"] == ("赛果",)
@@ -105,14 +108,17 @@ def test_project_data_defensively_freezes_nested_inputs() -> None:
     assert data.ingestion["errors"] == ()
     with pytest.raises(TypeError):
         data.report["meta"]["n_posts"] = 2
+    with pytest.raises(TypeError):
+        data.events["event-2"] = {"event_id": "event-2"}
     with pytest.raises(FrozenInstanceError):
-        data.events = ()
+        data.events = {}
 
 
 def test_loads_real_project_counts_and_excludes_inactive_events(
     project_data: Any,
 ) -> None:
-    event_ids = {event["event_id"] for event in project_data.events}
+    assert isinstance(project_data.events, Mapping)
+    event_ids = set(project_data.events)
 
     assert len(project_data.events) == 8
     assert len(project_data.posts) == 45
@@ -123,6 +129,132 @@ def test_loads_real_project_counts_and_excludes_inactive_events(
     assert project_data.ingestion["errors"] == ()
     assert "win_20240317_singapore_liang" not in event_ids
     assert "win_20250524_doha_moregard" not in event_ids
+
+
+def test_report_rejects_empty_posts_section(
+    repo_root: Path,
+    tmp_path: Path,
+) -> None:
+    module = importlib.import_module("lab3.data_loader")
+    paths = _copy_artifacts(module, repo_root, tmp_path)
+    _mutate_json(
+        paths["report"],
+        lambda report: report.__setitem__("posts", {}),
+    )
+
+    with pytest.raises(
+        module.DataContractError,
+        match=r"report\.posts\.n_total",
+    ):
+        module.load_project_data(tmp_path)
+
+
+def test_report_rejects_missing_nested_metric_field(
+    repo_root: Path,
+    tmp_path: Path,
+) -> None:
+    module = importlib.import_module("lab3.data_loader")
+    paths = _copy_artifacts(module, repo_root, tmp_path)
+
+    def remove_mean_score(report: dict[str, Any]) -> None:
+        event_id = next(iter(report["posts"]["by_event"]))
+        del report["posts"]["by_event"][event_id]["mean_score"]
+
+    _mutate_json(paths["report"], remove_mean_score)
+
+    with pytest.raises(
+        module.DataContractError,
+        match=r"report\.posts\.by_event\..*\.mean_score",
+    ):
+        module.load_project_data(tmp_path)
+
+
+def test_report_rejects_out_of_range_metric_polarity(
+    repo_root: Path,
+    tmp_path: Path,
+) -> None:
+    module = importlib.import_module("lab3.data_loader")
+    paths = _copy_artifacts(module, repo_root, tmp_path)
+
+    def corrupt_polarity(report: dict[str, Any]) -> None:
+        event_id = next(iter(report["posts"]["by_event"]))
+        report["posts"]["by_event"][event_id]["polarity_pct"][
+            "positive"
+        ] = 101
+
+    _mutate_json(paths["report"], corrupt_polarity)
+
+    with pytest.raises(
+        module.DataContractError,
+        match=r"report\.posts\.by_event\..*\.polarity_pct\.positive",
+    ):
+        module.load_project_data(tmp_path)
+
+
+def test_report_by_event_keys_match_source_rows(
+    repo_root: Path,
+    tmp_path: Path,
+) -> None:
+    module = importlib.import_module("lab3.data_loader")
+    paths = _copy_artifacts(module, repo_root, tmp_path)
+
+    def remove_event_metric(report: dict[str, Any]) -> None:
+        event_id = next(iter(report["posts"]["by_event"]))
+        del report["posts"]["by_event"][event_id]
+
+    _mutate_json(paths["report"], remove_event_metric)
+
+    with pytest.raises(
+        module.DataContractError,
+        match=r"report\.posts\.by_event",
+    ):
+        module.load_project_data(tmp_path)
+
+
+@pytest.mark.parametrize(
+    ("case", "expected_path"),
+    [
+        ("empty-emotions", r"report\.meta\.emotions"),
+        ("bad-source-count", r"report\.posts\.n_total"),
+        ("missing-rollup", r"report\.posts\.by_result_rollup\.win"),
+        ("bool-event-count", r"report\.posts\.by_event\..*\.n"),
+        ("infinite-rollup-mean", r"report\.posts\.by_result_rollup\.win\.mean_score"),
+        ("unknown-emotion", r"emotion_dist_pct\.未知情绪"),
+        ("bad-topic-rate", r"topic_mention_rate\.赛果"),
+    ],
+)
+def test_report_rejects_invalid_evidence_metric(
+    repo_root: Path,
+    tmp_path: Path,
+    case: str,
+    expected_path: str,
+) -> None:
+    module = importlib.import_module("lab3.data_loader")
+    paths = _copy_artifacts(module, repo_root, tmp_path)
+
+    def corrupt_report(report: dict[str, Any]) -> None:
+        event_id = next(iter(report["posts"]["by_event"]))
+        event_metric = report["posts"]["by_event"][event_id]
+        rollups = report["posts"]["by_result_rollup"]
+        if case == "empty-emotions":
+            report["meta"]["emotions"] = []
+        elif case == "bad-source-count":
+            report["posts"]["n_total"] = -1
+        elif case == "missing-rollup":
+            del rollups["win"]
+        elif case == "bool-event-count":
+            event_metric["n"] = True
+        elif case == "infinite-rollup-mean":
+            rollups["win"]["mean_score"] = float("inf")
+        elif case == "unknown-emotion":
+            event_metric["emotion_dist_pct"]["未知情绪"] = 1.0
+        elif case == "bad-topic-rate":
+            event_metric["topic_mention_rate"]["赛果"] = 1.01
+
+    _mutate_json(paths["report"], corrupt_report)
+
+    with pytest.raises(module.DataContractError, match=expected_path):
+        module.load_project_data(tmp_path)
 
 
 def test_missing_events_artifact_names_the_file(
@@ -245,6 +377,53 @@ def test_post_rejects_invalid_contract_field(
     )
 
     with pytest.raises(module.DataContractError, match=field):
+        module.load_project_data(tmp_path)
+
+
+@pytest.mark.parametrize(
+    ("case", "field"),
+    [
+        ("missing-likes", "likes"),
+        ("negative-likes", "likes"),
+        ("unknown-category", "sentiment_category"),
+        ("unknown-topic", "topic_tags"),
+        ("event-name-mismatch", "event_name"),
+    ],
+)
+def test_post_rejects_invalid_evidence_row_field(
+    repo_root: Path,
+    tmp_path: Path,
+    case: str,
+    field: str,
+) -> None:
+    module = importlib.import_module("lab3.data_loader")
+    paths = _copy_artifacts(module, repo_root, tmp_path)
+    rows = [
+        json.loads(line)
+        for line in paths["posts"].read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    record_id = rows[0]["post_id"]
+
+    def corrupt_row(values: list[dict[str, Any]]) -> None:
+        row = values[0]
+        if case == "missing-likes":
+            del row["likes"]
+        elif case == "negative-likes":
+            row["likes"] = -1
+        elif case == "unknown-category":
+            row["sentiment_category"] = "未知情绪"
+        elif case == "unknown-topic":
+            row["topic_tags"] = ["未知议题"]
+        elif case == "event-name-mismatch":
+            row["event_name"] = "错误赛事"
+
+    _mutate_jsonl(paths["posts"], corrupt_row)
+
+    with pytest.raises(
+        module.DataContractError,
+        match=rf"{record_id}.*{field}",
+    ):
         module.load_project_data(tmp_path)
 
 
