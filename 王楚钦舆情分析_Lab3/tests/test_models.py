@@ -13,6 +13,7 @@ from lab3.models import (
     EvidencePacket,
     GeneratedResult,
     MetricSummary,
+    ResultComparison,
 )
 
 
@@ -71,6 +72,45 @@ def test_evidence_packet_is_frozen() -> None:
 
     with pytest.raises(FrozenInstanceError):
         packet.label = "新标签"
+
+
+def test_result_comparison_is_frozen_and_evidence_defaults_are_compatible() -> None:
+    win = MetricSummary(
+        n=23,
+        mean_score=0.605,
+        polarity_pct={"positive": 83.3325, "neutral": 16.6675, "negative": 0.0},
+        top_emotions=(("自豪骄傲", 83.3325),),
+        top_topics=(("赛果", 100.0),),
+    )
+    loss = MetricSummary(
+        n=22,
+        mean_score=-0.0083,
+        polarity_pct={"positive": 22.5, "neutral": 58.3325, "negative": 19.1675},
+        top_emotions=(("中性陈述", 44.1675),),
+        top_topics=(("赛果", 95.83),),
+    )
+    comparison = ResultComparison(win=win, loss=loss)
+    packet = EvidencePacket(
+        label="胜负对比",
+        scope=AnalysisScope(
+            kind="win_loss_comparison",
+            source="post",
+            audience="球迷",
+        ),
+        posts=None,
+        comments=None,
+        citations=(),
+        warnings=(),
+        facts=(),
+        post_comparison=comparison,
+    )
+
+    assert packet.comment_comparison is None
+    assert packet.post_comparison is comparison
+    assert packet.as_prompt_dict()["post_comparison"]["win"]["n"] == 23
+    json.dumps(packet.as_prompt_dict(), ensure_ascii=False, allow_nan=False)
+    with pytest.raises(FrozenInstanceError):
+        comparison.win = loss
 
 
 def test_as_prompt_dict_recursively_returns_json_safe_plain_structure() -> None:

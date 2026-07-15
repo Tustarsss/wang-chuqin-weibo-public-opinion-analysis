@@ -35,13 +35,19 @@ class MetricSummary:
     n: int
     mean_score: float | None
     polarity_pct: Mapping[str, float]
-    top_emotions: tuple[tuple[str, int], ...]
-    top_topics: tuple[tuple[str, int], ...]
+    top_emotions: tuple[tuple[str, float], ...]
+    top_topics: tuple[tuple[str, float], ...]
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "polarity_pct", _freeze(self.polarity_pct))
         object.__setattr__(self, "top_emotions", _freeze(self.top_emotions))
         object.__setattr__(self, "top_topics", _freeze(self.top_topics))
+
+
+@dataclass(frozen=True)
+class ResultComparison:
+    win: MetricSummary
+    loss: MetricSummary
 
 
 @dataclass(frozen=True)
@@ -70,6 +76,8 @@ class EvidencePacket:
     citations: tuple[Citation, ...]
     warnings: tuple[str, ...]
     facts: tuple[str, ...]
+    post_comparison: ResultComparison | None = None
+    comment_comparison: ResultComparison | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "citations", _freeze(self.citations))
