@@ -186,6 +186,7 @@ def strategies_offline(
             "goal": goal,
             "audience": audience,
             "options": options,
+            "limitations": _limitations(packet),
             "disclaimer": (
                 "以上仅为基于当前案例证据的定性情景比较，非预测；"
                 "最终方案必须由人工决定并在执行前复核。"
@@ -510,7 +511,7 @@ def _source_record_count(packet: EvidencePacket, source: str) -> int | None:
 
 
 def _limitations(packet: EvidencePacket) -> tuple[str, ...]:
-    limitations = list(packet.warnings)
+    limitations = list(dict.fromkeys(packet.warnings))
     if not any("不能代表微博总体舆情" in item for item in limitations):
         limitations.append(_CASE_LIMITATION)
     return tuple(limitations)

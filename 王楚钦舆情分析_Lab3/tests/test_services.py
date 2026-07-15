@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib
 from collections.abc import Mapping
+from dataclasses import replace
 from typing import Any
 
 import pytest
@@ -28,8 +29,10 @@ class StubLLM:
         self.reason = reason
         self.exception = exception
         self.calls: list[dict[str, Any]] = []
+        self.call_count = 0
 
     def generate(self, task: str, evidence: Mapping[str, Any], validator: Any):
+        self.call_count += 1
         self.calls.append(
             {"task": task, "evidence": evidence, "validator": validator}
         )
@@ -83,6 +86,39 @@ def _strategy_payload(citation_id: str) -> dict[str, Any]:
         "options": options,
         "disclaimer": "方案非预测，最终必须由人工决定。",
     }
+
+
+@pytest.mark.parametrize("service_name", ["brief", "qa", "strategy"])
+def test_services_skip_online_generation_when_packet_has_no_citations(
+    service_name: str,
+    zero_comment_packet: Any,
+) -> None:
+    module = _services()
+    packet = replace(zero_comment_packet, citations=())
+    spy = StubLLM({})
+    assert packet.comments is not None
+    assert packet.comments.n == 0
+    assert packet.citations == ()
+
+    if service_name == "brief":
+        result = module.BriefService(spy).generate(packet)
+    elif service_name == "qa":
+        result = module.QAService(spy).answer(
+            "当前样本能说明什么？",
+            packet,
+        )
+    else:
+        result = module.StrategyService(spy).generate(
+            packet,
+            goal="回应争议",
+            audience="球迷",
+        )
+
+    assert result.mode == "offline"
+    assert "降级" in result.warning
+    assert "证据" in result.warning
+    assert "无可用引文" in result.warning or "为空" in result.warning
+    assert spy.call_count == 0
 
 
 def test_missing_key_brief_service_falls_back_without_network(
@@ -147,6 +183,20 @@ def test_brief_unknown_citation_or_missing_field_is_rejected_and_downgraded(
     assert missing_result.payload == brief_offline(loss_packet).payload
 
 
+def test_brief_empty_citation_ids_are_rejected_when_packet_has_evidence(
+    loss_packet: Any,
+) -> None:
+    module = _services()
+    payload = _brief_payload(loss_packet.citations[0].record_id)
+    payload["citation_ids"] = []
+
+    result = module.BriefService(StubLLM(payload)).generate(loss_packet)
+
+    assert result.mode == "offline"
+    assert result.payload == brief_offline(loss_packet).payload
+    assert "降级" in result.warning
+
+
 def test_service_exception_downgrade_hides_sensitive_exception_text(
     loss_packet: Any,
 ) -> None:
@@ -206,6 +256,49 @@ def test_qa_fact_outside_packet_is_rejected_and_downgraded(
     assert result.mode == "offline"
     assert result.payload["answerable"] is False
     assert "降级" in result.warning
+
+
+@pytest.mark.parametrize("empty_field", ["facts", "citation_ids"])
+def test_answerable_qa_requires_nonempty_facts_and_citations(
+    empty_field: str,
+    loss_packet: Any,
+) -> None:
+    module = _services()
+    citation_id = loss_packet.citations[0].record_id
+    payload = _qa_payload(loss_packet, citation_id)
+    payload[empty_field] = []
+
+    result = module.QAService(StubLLM(payload)).answer(
+        "当前样本能说明什么？",
+        loss_packet,
+    )
+
+    assert result.mode == "offline"
+    assert result.payload["answerable"] is False
+    assert "降级" in result.warning
+
+
+def test_unanswerable_online_qa_may_have_empty_facts_and_citations(
+    loss_packet: Any,
+) -> None:
+    module = _services()
+    payload = _qa_payload(
+        loss_packet,
+        loss_packet.citations[0].record_id,
+    )
+    payload["answerable"] = False
+    payload["facts"] = []
+    payload["citation_ids"] = []
+
+    result = module.QAService(StubLLM(payload)).answer(
+        "证据外的问题",
+        loss_packet,
+    )
+
+    assert result.mode == "online"
+    assert result.payload["answerable"] is False
+    assert result.payload["facts"] == ()
+    assert result.payload["citation_ids"] == ()
 
 
 def test_qa_preset_fallback_passes_the_key_to_offline_answer(
@@ -273,11 +366,100 @@ def test_online_strategy_requires_three_options_and_forces_user_inputs(
     assert fake.calls[0]["evidence"]["audience"] == "球迷"
 
 
+def test_online_strategy_forces_authoritative_packet_limitations(
+    loss_packet: Any,
+) -> None:
+    module = _services()
+    citation_id = loss_packet.citations[0].record_id
+
+    result = module.StrategyService(
+        StubLLM(_strategy_payload(citation_id))
+    ).generate(
+        loss_packet,
+        goal="回应争议",
+        audience="球迷",
+    )
+
+    assert result.mode == "online"
+    limitations = result.payload["limitations"]
+    assert all(warning in limitations for warning in loss_packet.warnings)
+    assert any("n=1" in warning for warning in limitations)
+    assert any(
+        "不能代表微博总体舆情" in limitation
+        for limitation in limitations
+    )
+    assert len(limitations) == len(tuple(dict.fromkeys(limitations)))
+
+
+def test_offline_strategy_exposes_the_same_authoritative_limitations(
+    loss_packet: Any,
+) -> None:
+    result = strategies_offline(
+        loss_packet,
+        goal="回应争议",
+        audience="球迷",
+    )
+
+    limitations = result.payload["limitations"]
+    assert all(warning in limitations for warning in loss_packet.warnings)
+    assert any("n=1" in warning for warning in limitations)
+    assert any(
+        "不能代表微博总体舆情" in limitation
+        for limitation in limitations
+    )
+    assert len(limitations) == len(tuple(dict.fromkeys(limitations)))
+
+
+def test_strategy_limitations_deduplicate_repeated_packet_warnings(
+    loss_packet: Any,
+) -> None:
+    repeated_warning = "重复的样本边界警告。"
+    packet = replace(
+        loss_packet,
+        warnings=(repeated_warning, repeated_warning),
+    )
+
+    result = strategies_offline(
+        packet,
+        goal="回应争议",
+        audience="球迷",
+    )
+
+    assert result.payload["limitations"].count(repeated_warning) == 1
+    assert any(
+        "不能代表微博总体舆情" in limitation
+        for limitation in result.payload["limitations"]
+    )
+
+
 def test_strategy_bad_schema_downgrades_to_offline(loss_packet: Any) -> None:
     module = _services()
     citation_id = loss_packet.citations[0].record_id
     payload = _strategy_payload(citation_id)
     payload["options"] = payload["options"][:2]
+
+    result = module.StrategyService(StubLLM(payload)).generate(
+        loss_packet,
+        goal="回应争议",
+        audience="球迷",
+    )
+
+    assert result.mode == "offline"
+    assert result.payload == strategies_offline(
+        loss_packet,
+        goal="回应争议",
+        audience="球迷",
+    ).payload
+    assert "降级" in result.warning
+
+
+def test_strategy_option_requires_nonempty_evidence_ids(
+    loss_packet: Any,
+) -> None:
+    module = _services()
+    citation_id = loss_packet.citations[0].record_id
+    payload = _strategy_payload(citation_id)
+    payload["options"][1]["evidence_ids"] = []
 
     result = module.StrategyService(StubLLM(payload)).generate(
         loss_packet,

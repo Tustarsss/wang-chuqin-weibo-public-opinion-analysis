@@ -47,6 +47,8 @@ class BriefService:
 
     def generate(self, packet: EvidencePacket) -> GeneratedResult:
         offline = brief_offline(packet)
+        if not packet.citations:
+            return _degraded(offline, "证据为空：当前证据包无可用引文")
         try:
             evidence = packet.as_prompt_dict()
         except Exception:
@@ -95,6 +97,8 @@ class QAService:
         preset: bool = False,
     ) -> GeneratedResult:
         offline = _offline_answer(question, packet, preset)
+        if not packet.citations:
+            return _degraded(offline, "证据为空：当前证据包无可用引文")
         try:
             evidence = {
                 "question": question,
@@ -156,6 +160,8 @@ class StrategyService:
         audience: str,
     ) -> GeneratedResult:
         offline = strategies_offline(packet, goal=goal, audience=audience)
+        if not packet.citations:
+            return _degraded(offline, "证据为空：当前证据包无可用引文")
         try:
             evidence = {
                 "goal": goal,
@@ -183,6 +189,7 @@ class StrategyService:
                 "goal": goal,
                 "audience": audience,
                 "options": options,
+                "limitations": offline.payload["limitations"],
                 "disclaimer": payload["disclaimer"].strip(),
             },
         )
@@ -243,7 +250,11 @@ def _validate_brief(
         and _is_string_sequence(payload.get("observations"), nonempty=True)
         and _is_string_sequence(payload.get("decision_focus"), nonempty=True)
         and _is_string_sequence(payload.get("limitations"))
-        and _references_are_known(payload.get("citation_ids"), allowed_ids)
+        and _references_are_known(
+            payload.get("citation_ids"),
+            allowed_ids,
+            nonempty=True,
+        )
     )
 
 
@@ -265,11 +276,18 @@ def _validate_qa(
         required <= set(payload)
         and _is_nonempty_string(payload.get("question"))
         and isinstance(payload.get("answerable"), bool)
-        and _is_string_sequence(facts)
+        and _is_string_sequence(
+            facts,
+            nonempty=payload.get("answerable") is True,
+        )
         and all(fact in allowed_facts for fact in facts)
         and _is_nonempty_string(payload.get("interpretation"))
         and _is_string_sequence(payload.get("limitations"))
-        and _references_are_known(payload.get("citation_ids"), allowed_ids)
+        and _references_are_known(
+            payload.get("citation_ids"),
+            allowed_ids,
+            nonempty=payload.get("answerable") is True,
+        )
     )
 
 
@@ -324,7 +342,11 @@ def _validate_option(
         and _is_string_sequence(option.get("benefits"), nonempty=True)
         and _is_string_sequence(option.get("risks"), nonempty=True)
         and _is_string_sequence(option.get("checks"), nonempty=True)
-        and _references_are_known(option.get("evidence_ids"), allowed_ids)
+        and _references_are_known(
+            option.get("evidence_ids"),
+            allowed_ids,
+            nonempty=True,
+        )
     )
 
 
@@ -343,8 +365,15 @@ def _clean_option(option: Mapping[str, Any]) -> dict[str, Any]:
     return cleaned
 
 
-def _references_are_known(value: Any, allowed: frozenset[str]) -> bool:
-    return _is_string_sequence(value) and all(item in allowed for item in value)
+def _references_are_known(
+    value: Any,
+    allowed: frozenset[str],
+    *,
+    nonempty: bool = False,
+) -> bool:
+    return _is_string_sequence(value, nonempty=nonempty) and all(
+        item in allowed for item in value
+    )
 
 
 def _is_string_sequence(value: Any, *, nonempty: bool = False) -> bool:
@@ -412,6 +441,8 @@ def _safe_reason(reason: Any) -> str:
         return "模型输出未通过安全校验"
     if "序列化" in reason:
         return "证据无法安全序列化"
+    if "无可用引文" in reason or ("证据" in reason and "为空" in reason):
+        return "证据为空（当前证据包无可用引文）"
     if "异常" in reason:
         return "在线模型调用异常，敏感详情已隐藏"
     return "在线模型不可用"
