@@ -11,6 +11,7 @@ from lab3.ui_helpers import (
     citation_lookup,
     context_key,
     event_options,
+    metric_chart_rows,
     metric_rows,
     synchronize_context,
 )
@@ -147,6 +148,40 @@ def test_metric_rows_keep_loss_posts_and_comments_separate(loss_packet):
         "负面%",
     }
     assert all(required <= set(row) for row in rows)
+
+
+def test_metric_chart_rows_use_compact_source_labels_for_single_event(
+    project_data,
+):
+    from lab3.evidence import build_evidence
+
+    packet = build_evidence(
+        project_data,
+        AnalysisScope(
+            kind="single_event",
+            source="both",
+            audience="球迷",
+            event_id="loss_20240731_paris_moregard",
+        ),
+    )
+    rows = metric_chart_rows(packet)
+
+    assert [row["样本"] for row in rows] == ["正文（n=5）", "评论（n=10）"]
+    assert all(packet.label not in row["样本"] for row in rows)
+    assert rows[0]["正面%"] + rows[0]["中性%"] + rows[0]["负面%"] == 100
+
+
+def test_metric_chart_rows_keep_groups_visible_for_comparison(
+    comparison_packet,
+):
+    rows = metric_chart_rows(comparison_packet)
+
+    assert [row["样本"] for row in rows] == [
+        "胜组｜正文（n=23）",
+        "负组｜正文（n=22）",
+        "胜组｜评论（n=30）",
+        "负组｜评论（n=31）",
+    ]
 
 
 def test_metric_rows_keep_comparison_groups_and_sources_separate(

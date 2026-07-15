@@ -32,6 +32,7 @@ from lab3.ui_helpers import (
     citation_lookup,
     context_key,
     event_options,
+    metric_chart_rows,
     metric_rows,
     synchronize_context,
 )
@@ -222,22 +223,15 @@ def _render_metrics(packet: EvidencePacket) -> None:
     rows = metric_rows(packet)
     st.subheader("样本指标")
     st.dataframe(rows, hide_index=True, width="stretch")
-    chart_rows = [
-        {
-            "分组/来源": f"{row['分组']}｜{row['来源']}",
-            "正面%": row["正面%"],
-            "中性%": row["中性%"],
-            "负面%": row["负面%"],
-        }
-        for row in rows
-    ]
+    chart_rows = metric_chart_rows(packet)
     if chart_rows:
         st.bar_chart(
             chart_rows,
-            x="分组/来源",
+            x="样本",
             y=["正面%", "中性%", "负面%"],
             stack=True,
-            color=["#2c7fb8", "#91b8d8", "#e07171"],
+            color=["#2e8b57", "#8fa6b8", "#d95f5f"],
+            height=340,
         )
 
     st.subheader("主要情绪与议题")

@@ -141,6 +141,27 @@ def metric_rows(packet: EvidencePacket) -> list[dict[str, Any]]:
     return rows
 
 
+def metric_chart_rows(packet: EvidencePacket) -> list[dict[str, Any]]:
+    """Build compact rows for the sample-composition chart."""
+
+    chart_rows: list[dict[str, Any]] = []
+    for row in metric_rows(packet):
+        prefix = (
+            f"{row['分组']}｜{row['来源']}"
+            if packet.scope.kind == "win_loss_comparison"
+            else str(row["来源"])
+        )
+        chart_rows.append(
+            {
+                "样本": f"{prefix}（n={row['样本量']}）",
+                "正面%": row["正面%"],
+                "中性%": row["中性%"],
+                "负面%": row["负面%"],
+            }
+        )
+    return chart_rows
+
+
 def citation_lookup(
     packet: EvidencePacket,
     citation_id: str,
